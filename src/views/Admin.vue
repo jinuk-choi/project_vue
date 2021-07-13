@@ -4,10 +4,10 @@
       v-model="drawer"
       app
     >
-       <v-card
-        class="mx-auto"
-        max-width="300"
-        tile
+      <v-card
+      class="mx-auto"
+      max-width="300"
+      tile
       >
        <v-subheader>목록</v-subheader>
         <v-list dense>
@@ -116,6 +116,7 @@
       >
         <router-view/>
       </v-container>
+      <router-view :key="$route.fullPath"/>
     </v-main>
     <v-footer
       color="primary"
