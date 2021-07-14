@@ -7,6 +7,10 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    rank: 0,
+    temp: 12345678911, 
+    all: '전체',
+    sales_flag: 0,
     login_flag: false, //로그인 성공시 1로 바뀌고 로그인 하지않았을 때나 로그아웃 시 0으로 바뀐다. 
     login_prev: 2,
 
@@ -75,8 +79,11 @@ export default new Vuex.Store({
     ],
     orderlist:[],
     orderDetailList:{},
-
-
+  },
+  getters: {
+    get_orderDetailList: state => {
+      return state.orderDetailList
+    }
   },
   mutations: {
     SET_CATEGORY(state, data) {
