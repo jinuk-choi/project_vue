@@ -1,9 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Login from '../views/Login/Login.vue'
+import Join from '../views/Login/Join.vue'
 import Home from '../views/Home.vue'
 import Admin from '../views/Admin.vue'
 import Category from '../views/Admin/Management/Category.vue'
 import Order from '../views/Admin/Management/Order.vue'
+import OrderDetail from '../views/Admin/Management/OrderDetail.vue'
 import Product from '../views/Admin/Management/Product.vue'
 
 Vue.use(VueRouter)
@@ -13,6 +16,16 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path:'/Login',
+    name:'Login',
+    component: Login
+  },
+  {
+    path:'/Join',
+    name:'Join',
+    component: Join
   },
 
   {
@@ -34,6 +47,11 @@ const routes = [
         path: 'product',
         name: 'Product',
         component: Product
+      },
+      {
+        path:'order/:id',
+        name:'OrderDetail',
+        component: OrderDetail
       },
 
 

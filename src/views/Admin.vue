@@ -99,14 +99,19 @@
     </v-card>
     </v-navigation-drawer>
 
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
+    <v-app-bar app color="primary" dark>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>ADMINISTRATOR</v-toolbar-title>
-      <v-btn right>로그아웃</v-btn>
+      <span style="padding-left:0px; padding-right:12px;" v-if="this.$store.state.login_flag == 0">
+        <v-btn  router :to="{name: 'Join'}">회원가입</v-btn>
+      </span>
+      <span style="padding-left:0px;" v-if="this.$store.state.login_flag == false">            
+        <v-btn color="grey darken-4" class= "ml-3" router :to="{name: 'Login'}">로그인</v-btn>
+      </span>
+      <span style="padding-left:0px;" v-else>
+        <v-btn color="grey darken-4" class="ml-3" @click="LogOut()">로그아웃</v-btn>
+      </span>
+        <v-btn color="deep-purple darken-4" class="mr-15" absolute right  router :to="{name: 'Home'}"> <span class="white--text">홈페이지로 이동</span> </v-btn>
     </v-app-bar>
 
     <v-main>
@@ -116,7 +121,7 @@
       >
         <router-view/>
       </v-container>
-      <router-view :key="$route.fullPath"/>
+   
     </v-main>
     <v-footer
       color="primary"

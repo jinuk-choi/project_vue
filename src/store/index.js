@@ -7,6 +7,26 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    login_flag: false, //로그인 성공시 1로 바뀌고 로그인 하지않았을 때나 로그아웃 시 0으로 바뀐다. 
+    login_prev: 2,
+
+     //user
+     userlist_headers: [
+      { text: '아이디', value: 'username'},
+      { text: '비밀번호', value: 'password'},
+      { text: '이름', value: 'name'},
+      { text: '주소', value: 'address'},
+      { text: '전화번호', value: 'phone'},
+      { text: '이메일', value: 'email'},
+      { text: '관리', value: 'management'},
+    ],
+    
+    //회원 목록에 뿌려질 사용자를 담을 리스트 배열
+    userlist:[],  
+
+    //로그인 된 사용자의 정보 
+    Userinfo:{User_Id:null,User_Name:null,User_auth:[],User_token:null},
+
     //category
     category_headers: [
       {
@@ -86,12 +106,45 @@ export default new Vuex.Store({
     SET_ORDER_DETAIL(state, data){
       state.orderDetailList = data
     },
+    SET_USERDATA(state, data) {
+      //Userinfo는 객체고, userlist는 배열인데 어차피 배열로 회원목록 뿌려줘야하므로 userlist 그대로 사용하도록 한다.
+       state.userlist = data      
+    },
+    SET_USER(state, data) {
+      state.Userinfo.User_Id = data.username
+      state.Userinfo.User_Name = data.name
+      state.Userinfo.User_auth = data.roles
+      state.Userinfo.User_token = data.token
+      state.login_flag = true
+    },
+    SET_USER_REFRESH(state,data) {
+      state.Userinfo.User_Id = data.username
+      state.Userinfo.User_Name = data.name
+      state.Userinfo.User_auth = data.authorities
+      state.Userinfo.User_token = data.token
+    },
+    LogOut(state) {
+      state.Userinfo.User_Id = null
+      state.Userinfo.User_Name = null
+      state.Userinfo.User_auth = null
+      state.Userinfo.User_token = null
+      state.login_flag = false
+      localStorage.removeItem("token")
+      // localStorage.removeItem("Authorization")
+      console.log(state.Userinfo)
+      console.log("로그아웃됐니?, 토큰 값: "+localStorage.getItem("token"))
+      // console.log("로그아웃됐니?, 토큰 값: "+localStorage.getItem("Authorization"))
+    },
+    INSERT_TOKEN(state) {
+      state.Userinfo.User_token = localStorage.getItem("token")
+      state.login_flag = true
+    },
 
   },
   actions: {
     CategoryList({commit}) {
       return new Promise((resolve, reject) => {
-          axios.get('http://localhost:9000/api/admin/categorylist')
+          axios.get('http://localhost:9100/api/admin/categorylist')
               .then(Response => {
                   console.log(Response.data)
                   commit('SET_CATEGORY', Response.data)
@@ -105,7 +158,7 @@ export default new Vuex.Store({
     CategoryUpdate({commit},payload) {
     if(confirm('분류명을 수정하시겠습니까?') == true){  
       return new Promise((resolve, reject) => {
-          axios.post('http://localhost:9000/api/admin/categoryupdate',payload)
+          axios.post('http://localhost:9100/api/admin/categoryupdate',payload)
               .then(Response => {
                   console.log(Response.data)
                   commit('SET_CATEGORY', Response.data)
@@ -127,7 +180,7 @@ export default new Vuex.Store({
       payload.name = name //이렇게 하면, 부모카테고리의 내용물에서 분류명만 현재 입력받은 분류명으로 바뀌어서 스프링으로 넘어가게 된다.
       console.log(payload)
       return new Promise((resolve, reject) => {
-          axios.post('http://localhost:9000/api/admin/categoryadd',payload)
+          axios.post('http://localhost:9100/api/admin/categoryadd',payload)
               .then(Response => {
                   console.log(Response.data)
                   commit('SET_CATEGORY', Response.data)
@@ -144,7 +197,7 @@ export default new Vuex.Store({
     },
     CategoryName({commit}, all) {
       return new Promise((resolve, reject) => {
-          axios.get('http://localhost:9000/api/admin/categoryname')
+          axios.get('http://localhost:9100/api/admin/categoryname')
               .then(Response => {
                   console.log(Response.data)
                   commit('SET_CATEGORY_NAME', Response.data)
@@ -158,7 +211,7 @@ export default new Vuex.Store({
     CategorySelect({commit},payload) {
       console.log(payload)
       return new Promise((resolve, reject) => {
-          axios.post('http://localhost:9000/api/admin/categoryselect',payload)
+          axios.post('http://localhost:9100/api/admin/categoryselect',payload)
               .then(Response => {
                   console.log(Response.data)
                   commit('SET_RANKING', Response.data)
@@ -172,7 +225,7 @@ export default new Vuex.Store({
 
     ProductList({commit}) {
       return new Promise((resolve, reject) => {
-          axios.get('http://localhost:9000/api/admin/productlist')
+          axios.get('http://localhost:9100/api/admin/productlist')
               .then(Response => {
                   console.log(Response.data)
                   commit('SET_PRODUCT_LIST', Response.data)
@@ -195,7 +248,7 @@ export default new Vuex.Store({
 
       if(confirm('상품을 등록하시겠습니까?') == true){
       return new Promise((resolve, reject) => {
-          axios.post('http://localhost:9000/api/admin/productcreate',
+          axios.post('http://localhost:9100/api/admin/productcreate',
             formData,
             {
               headers: {
@@ -234,7 +287,7 @@ export default new Vuex.Store({
 
       if(confirm('상품정보를 수정하시겠습니까?') == true){
       return new Promise((resolve, reject) => {
-          axios.post('http://localhost:9000/api/admin/productdataupdate', 
+          axios.post('http://localhost:9100/api/admin/productdataupdate', 
             formData,
             {
               headers: {
@@ -261,7 +314,7 @@ export default new Vuex.Store({
  
     ProductUpdate({commit},payload) {
       return new Promise((resolve, reject) => {
-          axios.post('http://localhost:9000/api/admin/productupdate',payload)
+          axios.post('http://localhost:9100/api/admin/productupdate',payload)
               .then(Response => {
                   console.log(Response.data)
                   commit('UPDATE_PRODUCT', Response.data)
@@ -278,7 +331,7 @@ export default new Vuex.Store({
       console.log(payload)
       if(confirm('상품을 삭제하시겠습니까?') == true){
       return new Promise((resolve, reject) => {
-          axios.post('http://localhost:9000/api/admin/productdelete',payload)
+          axios.post('http://localhost:9100/api/admin/productdelete',payload)
               .then(Response => {
                   console.log(Response.data)
                   commit('SET_PRODUCT_LIST', Response.data)
@@ -294,7 +347,7 @@ export default new Vuex.Store({
 
     OrderList({commit}) {
       return new Promise((resolve, reject) => {
-          axios.get('http://localhost:9000/api/admin/orderlist')
+          axios.get('http://localhost:9100/api/admin/orderlist')
               .then(Response => {
                   console.log(Response.data)
                   commit('SET_ORDER', Response.data)
@@ -311,7 +364,7 @@ export default new Vuex.Store({
       payload = obj;
       console.log(payload)
       return new Promise((resolve, reject) => {
-          axios.post('http://localhost:9000/api/admin/orderdetail',payload)
+          axios.post('http://localhost:9100/api/admin/orderdetail',payload)
               .then(Response => {
                   console.log(Response.data)
                   commit('SET_ORDER_DETAIL', Response.data)
@@ -326,7 +379,7 @@ export default new Vuex.Store({
       console.log(payload)
       if(confirm('해당 주문을 삭제하시겠습니까?') == true){
       return new Promise((resolve, reject) => {
-          axios.post('http://localhost:9000/api/admin/orderdetaildelete',payload)
+          axios.post('http://localhost:9100/api/admin/orderdetaildelete',payload)
               .then(Response => {
                   console.log(Response.data)
                   commit('SET_ORDER_DETAIL', Response.data)
@@ -344,7 +397,7 @@ export default new Vuex.Store({
       console.log(payload)
       if(confirm('주문정보를 수정하시겠습니까?') == true){
       return new Promise((resolve, reject) => {
-          axios.post('http://localhost:9000/api/admin/orderdetailupdate',payload)
+          axios.post('http://localhost:9100/api/admin/orderdetailupdate',payload)
               .then(Response => {
                   console.log(Response.data)
                   commit('SET_ORDER_DETAIL', Response.data)
@@ -357,6 +410,157 @@ export default new Vuex.Store({
       } else{
         return;
       }
+    },
+
+    UserList({commit, state}) {
+      return new Promise((resolve, reject) => {
+          axios.get('http://localhost:9100/api/admin/userlist')
+              .then(Response => {
+                  console.log('------ response.data')
+                  console.log(Response.data)
+                  commit('SET_USERDATA', Response.data)
+
+                  console.dir(state.Userinfo.User_Id)
+                  console.dir(state.Userinfo.User_Name)
+                  console.log('----------------------------')
+                  console.dir(state.Userinfo)
+                  console.dir(state.Userinfo.User_auth)
+                  console.dir(state.Userinfo.User_auth[0]) // login
+                  console.dir(state.Userinfo.User_auth[0].authority) // 새로고침시
+              })
+              .catch(Error => {
+                  console.log('error')
+                  reject(Error)
+              })
+      })
+    },
+    UserUpdate({commit, state},payload) {
+      console.log(payload)
+      if(confirm('회원정보를 수정하시겠습니까?') == true){
+      return new Promise((resolve, reject) => {
+          axios.post('http://localhost:9100/api/admin/userupdate',payload)
+              .then(Response => {
+                    console.log(Response.data)
+                    console.log(this.state.temp)
+                    this.state.temp=0
+                    console.log(this.state.temp)
+                    commit('SET_USERDATA', Response.data) 
+              })
+              .catch(Error => {
+                  alert('권한이 없습니다.')
+                  console.log('error')
+                  reject(Error)
+              })           
+          })
+      } else{
+         return;
+      }
+    },
+    UserDelete({commit},payload) {
+      console.log(payload)
+      if(confirm('회원을 탈퇴처리 하시겠습니까?') == true){
+          return new Promise((resolve, reject) => {
+              axios.post('http://localhost:9100/api/admin/userdelete',payload)
+                  .then(Response => {
+                        console.log(Response.data)
+                        commit('SET_USERDATA', Response.data)
+                  })
+                  .catch(Error => {
+                      alert('권한이 없습니다.')
+                      console.log('error')
+                      reject(Error)
+                  })
+          })
+      }else{
+        return;
+      }
+    },
+    Login({ commit }, payload) {
+      return new Promise((resolve, reject) => {
+          axios.post('http://localhost:9100/api/auth/signin', payload)
+              .then(Response => {
+                  console.log(Response.data)
+                  if (Response.data.username != null) {
+                    //로그인 시 헤더에 디폴트 값으로 포함되는 권한을 추가함.
+                      axios.defaults.headers.common['Authorization'] = `Bearer ${Response.data.token}`
+                      localStorage.setItem("token", Response.data.token)
+                      commit('SET_USER', Response.data)  
+                        if(this.state.login_prev == 0){
+                          router.push({ name: 'Home' })   
+                        }
+                        else if(this.state.login_prev == 1){
+                          router.push({ name: 'Home' })   
+                        }
+                        else if(this.state.login_prev == 2){
+                          router.push({ name: 'Admin' })
+                        }  
+                  }
+              })
+              .catch(Error => {
+                  alert('아이디 또는 비밀번호를 확인해주세요.')
+                  console.log('error')
+                  reject(Error)
+              })
+      })
+    },
+    UnpackToken({commit}) {
+        return new Promise((resolve, reject) => {
+          axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("token")}`
+          axios.get('http://localhost:9100/api/auth/unpackToken')
+              .then(Response => {
+                console.log(Response.data)
+                commit('SET_USER_REFRESH',Response.data)
+              })
+              .catch(Error => {
+                console.log(Error)
+                  console.log('unpackToken_error')
+              })
+      })
+    },
+    LogOut({commit}){
+      return new Promise((resolve, reject) => {
+        //로그아웃시 헤더에 디폴트 값으로 포함되는 권한을 null로 처리함.
+        axios.defaults.headers.common['Authorization'] = null;
+        commit('LogOut')
+      })
+    },
+    Join({commit},payload){
+        console.log(payload)
+        return new Promise((resolve, reject) => {
+          axios.post('http://localhost:9100/api/auth/signup',payload)
+              .then(Response => {
+                if(Response.data == 'success'){
+                  console.log(Response.data)
+                  alert("회원가입이 완료되었습니다.");      
+                  router.push({ name: 'Home' })      
+                }else{
+                  alert('이미 사용중인 아이디입니다.')
+                }
+              })
+              .catch(Error => {
+                  alert('입력양식을 확인해주세요.')
+                  console.log('error')
+                  reject(Error)
+              })
+      })
+    },
+    duplicate({commit},payload){
+      console.log(payload)
+      return new Promise((resolve, reject) =>{
+        axios.post('http://localhost:9100/api/auth/duplicate',payload)
+          .then(Response =>{
+            console.log(Response.data)
+            if(Response.data == 'success'){
+              alert('사용 가능한 아이디입니다.')
+            }else{
+              alert('이미 사용중인 아이디입니다.')
+            }
+          })
+          .catch(Error => {
+            console.log('error')
+            reject(Error)
+        })
+      })
     },
 
 
