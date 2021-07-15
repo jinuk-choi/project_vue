@@ -111,7 +111,7 @@
       <span style="padding-left:0px;" v-else>
         <v-btn color="grey darken-4" class="ml-3" @click="LogOut()">로그아웃</v-btn>
       </span>
-        <v-btn color="deep-purple darken-4" class="mr-15" absolute right  router :to="{name: 'Home'}"> <span class="white--text">홈페이지로 이동</span> </v-btn>
+        <v-btn color="indigo darken-4" class="mr-15" absolute right  router :to="{name: 'Home'}"> <span class="white--text">홈페이지로 이동</span> </v-btn>
     </v-app-bar>
 
     <v-main>

@@ -3,7 +3,7 @@
     <v-row>
       <v-col style="padding-top:0px; padding-bottom:20px;"><h2 class="pt-2">상품관리</h2></v-col>
       <v-col class="mr-7 mt-4">
-        <v-btn color="indigo lighten-1" absolute right router :to="{name:'ProductRegistration'}">
+        <v-btn color="blue darken-4" absolute right router :to="{name:'ProductRegistration'}">
           <span class="white--text">상품등록</span>
         </v-btn>
       </v-col>
@@ -23,7 +23,7 @@
             <td style="width:420px;">
                 <v-row style="display:flex; width:420px; align-items:center;"> 
                   <v-col style="overflow:hidden;">
-                    <!-- <img :src="image(row.item.image)"/> -->
+                    <img :src="image(row.item.image)"/> 
                   </v-col>
                   <v-col>
                     <div>상품명: {{row.item.name}}</div>
@@ -99,18 +99,18 @@ import { mapActions } from "vuex"
       priceToString(price) {
          return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
       },
-      // image(image){
-      //   //경로를 조합해줄 메서드.
-      //   if(image == null){
-      //     return require('@/images/null.jpg');
-      //   }
-      //   /* 랜더링 되는 시간 때문에 발생하는 오류를 try, catch로 잡아준다. */
-      //   try {
-      //     return require('@/images/'+ image +'.jpg')
-      //   } catch (e) {
-      //     return require('@/images/null.jpg')
-      //   }
-      // },
+      image(image){
+        //경로를 조합해줄 메서드.
+        if(image == null){
+          return require('@/images/null.jpg');
+        }
+        /* 랜더링 되는 시간 때문에 발생하는 오류를 try, catch로 잡아준다. */
+        try {
+          return require('@/images/'+ image +'.jpg')
+        } catch (e) {
+          return require('@/images/null.jpg')
+        }
+      },
       checkNull(count){
         if(count == null)
           return 0
