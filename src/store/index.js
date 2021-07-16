@@ -14,6 +14,7 @@ export default new Vuex.Store({
     login_flag: false, //로그인 성공시 1로 바뀌고 로그인 하지않았을 때나 로그아웃 시 0으로 바뀐다. 
     login_prev: 2,
 
+     //관리자단 
      //user
      userlist_headers: [
       { text: '아이디', value: 'username'},
@@ -45,6 +46,14 @@ export default new Vuex.Store({
     ],
     categorylist:[],
     categoryname:[],
+
+    //ranking
+    ranking_header: [
+      { text: '순위', value: 'rank', },
+      { text: '누적판매량', value: 'order_count', },
+      { text: '상품명', value: 'name' },
+    ],
+    ranking:[],
 
     //product
     product_headers:[
@@ -79,6 +88,29 @@ export default new Vuex.Store({
     ],
     orderlist:[],
     orderDetailList:{},
+
+    //point
+    point_headers:[
+      { text:'아이디', value:'username'},
+      { text:'이름', value:'name'},
+      { text:'포인트내용', value:'content'},
+      { text:'포인트', value:'point'},
+      { text:'일시', value:'date'},
+      { text:'포인트합계', value:'total_point'},
+    ],
+    point:[],
+
+    //sales
+    sales_headers:[
+      {text:'주문번호', value:'id'},
+      {text:'주문날짜', value:'date'},
+      {text:'주문자아이디', value:'id'},
+      {text:'주문자성명', value:'name'},
+      {text:'휴대폰', value:'phone'},
+      {text:'주문합계', value:'total_price'},
+      {text:'상세보기', value:''},
+    ],
+    salesdata:[],
   },
   getters: {
     get_orderDetailList: state => {
@@ -96,7 +128,9 @@ export default new Vuex.Store({
 
       state.categoryname = data
     },
-
+    SET_SALES_DATA(state,data){
+      state.salesdata = data
+    },
     SET_PRODUCT_LIST(state, data){
       state.productlist = data
     },
@@ -146,6 +180,38 @@ export default new Vuex.Store({
       state.Userinfo.User_token = localStorage.getItem("token")
       state.login_flag = true
     },
+    SET_POINT(state, data){
+        
+      for(var item=0; item <data.length; item++)  {
+
+        var part1 = data[item].date.slice(0,8);
+        var part2 = data[item].date.slice(9,15);
+        
+        var time = part1 + part2;
+        data[item].time = time
+      }
+
+      function date_Sort(a, b) { 
+        return b.time - a.time;
+      }
+      //날짜 순으로 정렬
+      data.sort(date_Sort);
+
+      state.point = data
+    },
+    SET_RANKING(state, data) {
+      function oc_Sort(a, b) { 
+        return b.order_count - a.order_count;
+      }
+      data.sort(oc_Sort);
+      //위에서 정렬을 끝내고 오면, 거기에 순위를 매겨주는 로직
+      //모두 null로 넘어오기에 정렬이 끝났다면 거기에 순위를 붙여줌
+      for(var i = 0; i<data.length; i++){
+        data[i].rank = i+1;
+      }
+      state.ranking = data
+    },    
+
 
   },
   actions: {
@@ -418,7 +484,88 @@ export default new Vuex.Store({
         return;
       }
     },
-
+    Ranking({commit}) {
+      return new Promise((resolve, reject) => {
+          axios.get('http://localhost:9100/api/admin/ranking')
+              .then(Response => {
+                  console.log(Response.data)
+                  commit('SET_RANKING', Response.data)
+              })
+              .catch(Error => {
+                  console.log('error')
+                  reject(Error)
+              })
+      })
+    },
+    SalesData({commit},payload){
+      var dateinfo = {dateinfo:router.currentRoute.params}
+      console.log(dateinfo)
+      payload = dateinfo
+      commit('SET_SALES_DATA', null) //SalesData 페이지로 넘어가기 전에 우선 state.salesdata의 내용물을 null로 초기화함.
+      return new Promise((resolve,reject) =>{
+          axios.post('http://localhost:9100/api/admin/salesdata',payload)
+              .then(Response =>{
+                console.log(Response.data)
+                if(Response.data == 'empty'){        
+                  router.push({ name: 'Sales' })      
+                  alert('표시할 데이터가 없습니다.')
+                  return;
+                }else{
+                  commit('SET_SALES_DATA', Response.data)
+                }
+              })
+              .catch(Error =>{
+                  console.log('error')
+                  reject(Error)
+              })
+      })
+    },
+    SalesByTime({commit}, payload){
+      console.log(payload)
+      return new Promise((resolve, reject) =>{
+          axios.post('http://localhost:9100/api/admin/salesbytime', payload)
+               .then(Response =>{
+                  console.log(Response.data)
+                  commit('SET_RANKING', Response.data)
+          })
+          .catch(Error =>{
+              console.log('error')
+              reject(Error)
+          })
+      })
+    },
+    Point({commit}){
+      return new Promise((resolve,reject) => {
+        axios.get('http://localhost:9100/api/admin/point')
+        .then(Response => {
+            console.log(Response.data)
+            commit('SET_POINT', Response.data)
+        })
+        .catch(Error => {
+            console.log('error')
+            reject(Error)
+        })
+      })
+    },
+    PointAdd({commit}, payload){
+      console.log(payload)
+      return new Promise((resolve,reject) => {
+        axios.post('http://localhost:9100/api/admin/pointadd',payload)
+        .then(Response => {
+          if(Response.data == 'success'){
+            console.log(Response.data)
+            router.push({name:'Point'})
+          }else{
+            alert('존재하지 않는 아이디입니다.');
+          }
+        })
+        .catch(Error =>{
+            alert('입력양식을 확인해주세요.');
+            console.log('error')
+            reject(Error)
+        })
+      })
+    },
     UserList({commit, state}) {
       return new Promise((resolve, reject) => {
           axios.get('http://localhost:9100/api/admin/userlist')
