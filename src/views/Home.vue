@@ -43,7 +43,7 @@
             <template v-slot:activator="{ on, attrs }">
               <v-tab  v-bind="attrs"
                       v-on="on"
-                      @click="category('Living')"
+                      @click="category('Top')"
                       style="width:140px;">TOP                  
               </v-tab>
             </template>
@@ -121,8 +121,8 @@
          -->
 
         <Main v-if="'Home' == this.Tab"></Main>
-        <Living v-if="'Living' == this.Tab"></Living>
-        <Materials v-if="'Materials' == this.Tab"></Materials> 
+        <Top v-if="'Top' == this.Tab"></Top>
+        <Pants v-if="'Pants' == this.Tab"></Pants> 
          <router-view/>
 
         <!-- 
@@ -161,8 +161,8 @@
 // @ is an alias to /src
 import { mapActions } from "vuex"
 import Main from '../views/User/Main.vue'
-import Living from './User/Tab/Top.vue'
-import Materials from './User/Tab/Pants.vue'
+import Top from './User/Tab/Top.vue'
+import Pants from './User/Tab/Pants.vue'
 
 export default {
   created(){
@@ -170,7 +170,7 @@ export default {
     },
   name: 'Home',
   components: {
-    Main, Living, Materials
+    Main, Top, Pants
   },
    data: () => ({ 
       Tab: 'Home',
