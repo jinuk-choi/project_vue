@@ -102,9 +102,6 @@
     <v-app-bar app color="primary" dark>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>ADMINISTRATOR</v-toolbar-title>
-      <span style="padding-left:0px; padding-right:12px;" v-if="this.$store.state.login_flag == 0">
-        <v-btn  router :to="{name: 'Join'}">회원가입</v-btn>
-      </span>
       <span style="padding-left:0px;" v-if="this.$store.state.login_flag == false">            
         <v-btn color="grey darken-4" class= "ml-3" router :to="{name: 'Login'}">로그인</v-btn>
       </span>

@@ -14,6 +14,12 @@ export default new Vuex.Store({
     login_flag: false, //로그인 성공시 1로 바뀌고 로그인 하지않았을 때나 로그아웃 시 0으로 바뀐다. 
     login_prev: 2,
 
+    //사용자단
+    imageByRank:[], //홈화면 랭킹
+    imageTop:[], //홈화면 거실등
+    imagePants:[], //홈화면 방등
+    
+
      //관리자단 
      //user
      userlist_headers: [
@@ -118,6 +124,15 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    SET_IMAGE_BY_RANK(state,data){
+      state.imageByRank = data
+    },
+    SET_IMAGE_TOP(state, data){
+      state.imageTop = data
+    },
+    SET_IMAGE_PANTS(state, data){
+      state.imagePants = data
+    },
     SET_CATEGORY(state, data) {
       state.categorylist = data
     },
@@ -716,11 +731,63 @@ export default new Vuex.Store({
         })
       })
     },
-
-
-
-
-
+    // -------------- 아래부터 사용자 화면 ----------------
+    Product({commit},payload) {
+      var obj = {id: router.currentRoute.params.id};
+      payload = obj;
+      console.log(obj);
+      return new Promise((resolve, reject) => {
+          axios.post('http://localhost:9100/api/product',payload)
+              .then(Response => {
+                  console.log(Response.data)
+                  commit('SET_PRODUCT', Response.data)
+              })
+              .catch(Error => {
+                  console.log('error')
+                  reject(Error)
+              })
+      })
+    },
+    imageByRank({commit}){
+      console.log('상품랭킹 순 이미지')
+      return new Promise((resolve, reject) => {
+        axios.get('http://localhost:9100/api/imageByRank')
+        .then(Response => {
+          console.log(Response.data)
+          commit('SET_IMAGE_BY_RANK',Response.data)
+        })
+        .catch(Error => {
+          console.log('error')
+          reject(Error)
+        })
+      })      
+    },
+    imageTop({commit}){
+      return new Promise((resolve, reject) => {
+        axios.get('http://localhost:9100/api/imageTop')
+        .then(Response => {
+          console.log(Response.data)
+          commit('SET_IMAGE_TOP',Response.data)
+        })
+        .catch(Error => {
+          console.log('error')
+          reject(Error)
+        })
+      })      
+    },
+    imagePants({commit}){
+      return new Promise((resolve, reject) => {
+        axios.get('http://localhost:9100/api/imagePants')
+        .then(Response => {
+          console.log(Response.data)
+          commit('SET_IMAGE_PANTS',Response.data)
+        })
+        .catch(Error => {
+          console.log('error')
+          reject(Error)
+        })
+      })      
+    },
   },
   modules: {
   }

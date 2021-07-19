@@ -16,6 +16,9 @@ import PointAdd from '../views/Admin/Client/PointAdd.vue'
 import Ranking from '../views/Admin/Situation/Ranking.vue'
 import Sales from '../views/Admin/Situation/Sales.vue'
 import SalesData from '../views/Admin/Situation/SalesData.vue'
+import Top from '../views/User/Tab/Top.vue'
+import Pants from '../views/User/Tab/Pants.vue'
+import Product_User from '../views/User/Product.vue'
 
 Vue.use(VueRouter)
 
@@ -23,7 +26,14 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    children:[
+      {
+        path:'product/:id',
+        name:'Product_User',
+        component: Product_User
+      },
+    ]
   },
   {
     path:'/Login',
@@ -34,6 +44,16 @@ const routes = [
     path:'/Join',
     name:'Join',
     component: Join
+  },
+  {
+    path:'/Top',
+    name:'Top',
+    component: Top
+  },
+  {
+    path:'/Pants',
+    name:'Pants',
+    component: Pants
   },
 
   {
