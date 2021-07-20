@@ -123,17 +123,17 @@
       >
       <!-- 사용자 정보 -->
         <hr width = "100%" color = "gray" style="margin: auto;">
-        <p class="size18" style="margin-bottom:0px; margin-top:10px; margin-left:200px; font-weight:560;">
+        <p class="size18" style="margin-bottom:0px; margin-top:10px; margin-left:100px; font-weight:560;">
           <span>대표이사: 김철수</span>
           <br/>
           <span>사업자 등록번호: 000-00-00000</span>
         </p>
-        <p class="size18" style="margin-bottom:0px; margin-top:10px; margin-left:400px; font-weight:560;">
+        <p class="size18" style="margin-bottom:0px; margin-top:10px; margin-left:300px; font-weight:560;">
           <span>주소: 대구광역시 중구</span>
           <br/>
           <span>E-Mail: abc@abc.com</span>
         </p>
-        <p class="size18" style="margin-bottom:0px; margin-top:10px; margin-left:700px; font-weight:560;">
+        <p class="size18" style="margin-bottom:0px; margin-top:10px; margin-left:500px; font-weight:560;">
           <span>전화번호: 0000-0000</span>
           <br/>
           <span>FAX: 0000-000-0000</span> 

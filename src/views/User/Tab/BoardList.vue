@@ -1,63 +1,63 @@
 
 <template>
   <v-simple-table>
-      <template v-slot:default>
-        <thead>
-          <v-container>
-              <v-row
-                class="mb-6"
-                justify="left"
-                no-gutters>
-                <v-col lg="2">
-                  <v-card
-                    class="pa-2"
-                    outlined
-                    tile>
-                  <select v-model="selected" >
-                    <option disabled value="">Please select one</option>
-                    <option value="1">제목</option>
-                    <option value="2">내용</option>
-                    <option value="4">작성자</option>
-                  </select>
-                  </v-card>
-                </v-col>
-                <v-col md="auto">
-                  <v-card
-                    class="pa-2"
-                    outlined
-                    tile>
-                   <input v-model="search"  type="text" placeholder="search.." class="form-group">
-                  </v-card>
-                </v-col>
-                <v-col lg="1">
-                  <v-btn @click="BoardSearch({type: selected, keyword: search, page: page})">검색</v-btn>
-                </v-col>
-                <v-col lg="1">
-                  <v-btn router :to="{name:'boardwrite'}" >글쓰기</v-btn>
-                </v-col>
-              </v-row>
-          </v-container> 
+    <template v-slot:default>
+      <thead>
+        <v-container>
+            <v-row
+              class="mb-6"
+              justify="left"
+              no-gutters>
+              <v-col lg="3">
+                <v-card
+                  class="pa-2"
+                  outlined
+                  tile>
+                <select v-model="selected" >
+                  <option disabled value="">Please select one</option>
+                  <option value="1">제목</option>
+                  <option value="2">내용</option>
+                  <option value="4">작성자</option>
+                </select>
+                </v-card>
+              </v-col>
+              <v-col md="auto">
+                <v-card
+                  class="pa-2"
+                  outlined
+                  tile>
+                  <input v-model="search"  type="text" placeholder="search.." class="form-group">
+                </v-card>
+              </v-col>
+              <v-col lg="1">
+                <v-btn @click="BoardSearch({type: selected, keyword: search, page: page})">검색</v-btn>
+              </v-col>
+              <v-col lg="1">
+                <v-btn router :to="{name:'boardwrite'}" >글쓰기</v-btn>
+              </v-col>
+            </v-row>
+        </v-container> 
           <tr>
-            <th class="text-left">
+            <th style="width: 900px;" class="text-left">
               NO
             </th>
-            <th style="width: 200px;" class="text-left">
+            <th style="width: 100px;" class="text-left">
               제목
             </th>
-            <th style="width: 200px;" class="text-left">
+            <th style="width: 100px;" class="text-left">
               내용
             </th>
-            <th class="text-left">
+            <th style="width: 100px;" class="text-left">
               작성자
             </th>
-            <th class="text-left">
+            <th style="width: 80px;" class="text-left">
               조회수
             </th>
-            <th class="text-left">
+            <th style="width: 100px;" class="text-left">
               작성일
             </th>
           </tr>
-        </thead>
+      </thead>
         <tbody>
           <tr 
             v-for="item in List"
@@ -76,16 +76,17 @@
             <td>{{ item.aDate }}</td>
           </tr>
         </tbody>
-          <div class="text-xs-center">
-            <v-pagination
-              v-model="page"
-              :length="pagination.lastPage"
-              :total-visible="5"
-              @input="next(page)"
-            ></v-pagination>
-          </div>
-      </template>
+        <div  class="text-xs-center">
+          <v-pagination
+            v-model="page"
+            :length="pagination.lastPage"
+            :total-visible="5"
+            @input="next(page)"
+          ></v-pagination>
+        </div>
+    </template>
   </v-simple-table>
+  
 </template>
 
 <script>
