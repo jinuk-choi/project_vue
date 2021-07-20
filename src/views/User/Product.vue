@@ -48,6 +48,7 @@
             <v-row>
               <v-btn class="ml-14 mt-7">즉시구매</v-btn>
               <v-btn class="ml-5 mt-7">장바구니</v-btn>
+              
             </v-row>
          </v-card>
         </v-col>

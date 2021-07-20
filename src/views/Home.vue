@@ -16,7 +16,6 @@
            <v-btn  router :to="{name: 'Join'}">회원가입</v-btn>
         </span>
       </v-layout>
-
       <v-layout>
         <v-spacer/>
         <router-link to='/' style="color:#263238; text-decoration:none">  
@@ -24,7 +23,6 @@
         </router-link>
         <v-spacer/>
       </v-layout>
-
       <v-layout>
         <v-tabs
             centered
@@ -67,6 +65,7 @@
             <template v-slot:activator="{ on, attrs }">
               <v-tab    v-bind="attrs"
                         v-on="on"
+                        @click="category('Pants')"
                         style="width:140px;">PANTS
               </v-tab>
             </template>
@@ -74,7 +73,7 @@
               <v-list-item
                 v-for="(item, index) in PANTS"
                 :key="index"
-                router :to="{name: item.name}"
+                @click="move()"
               >
                 <v-list-item-title>{{ item.title }}</v-list-item-title>
               </v-list-item>
@@ -82,27 +81,7 @@
             </v-menu>
 
             <!-- 상품 문의 -->
-            <v-menu
-              open-on-hover
-              bottom
-              offset-y
-            >
-            <template v-slot:activator="{ on, attrs }">
-              <v-tab    v-bind="attrs"
-                        v-on="on"
-                        style="width:140px;">상품 문의
-              </v-tab>
-            </template>
-            <!-- <v-list>
-              <v-list-item
-                v-for="(item, index) in Dining"
-                :key="index"
-                router :to="{name: item.name}"
-              >
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
-              </v-list-item>
-            </v-list> -->
-            </v-menu>
+            <v-tab style=" color:grey; width:140px;" router :to="{name: 'BoardList'}">Q&A</v-tab>
 
             <v-tab style="background-color:lightgrey; color:black; width:140px;" router :to="{name: 'Admin'}">관리자 페이지</v-tab>
         </v-tabs>
@@ -120,10 +99,10 @@
          <router-view/>
          -->
 
-        <Main v-if="'Home' == this.Tab"></Main>
+        <!-- <Main v-if="'Home' == this.Tab"></Main>
         <Top v-if="'Top' == this.Tab"></Top>
-        <Pants v-if="'Pants' == this.Tab"></Pants> 
-         <router-view/>
+        <Pants v-if="'Pants' == this.Tab"></Pants> -->
+         <router-view/> 
 
         <!-- 
         <Main v-if="'Home' == this.Tab"></Main>
@@ -138,6 +117,29 @@
 
       </v-container>
     </v-main>
+      <v-footer
+        color="white"
+        app
+      >
+      <!-- 사용자 정보 -->
+        <hr width = "100%" color = "gray" style="margin: auto;">
+        <p class="size18" style="margin-bottom:0px; margin-top:10px; margin-left:200px; font-weight:560;">
+          <span>대표이사: 김철수</span>
+          <br/>
+          <span>사업자 등록번호: 000-00-00000</span>
+        </p>
+        <p class="size18" style="margin-bottom:0px; margin-top:10px; margin-left:400px; font-weight:560;">
+          <span>주소: 대구광역시 중구</span>
+          <br/>
+          <span>E-Mail: abc@abc.com</span>
+        </p>
+        <p class="size18" style="margin-bottom:0px; margin-top:10px; margin-left:700px; font-weight:560;">
+          <span>전화번호: 0000-0000</span>
+          <br/>
+          <span>FAX: 0000-000-0000</span> 
+        </p>
+        
+      </v-footer>
   </v-app>
 </template>
 

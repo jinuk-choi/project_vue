@@ -3,7 +3,7 @@
 
      <p class="size24" style="text-align:left; margin-top:30px; margin-left:10%">TOP
        <span class="text">TOP 전체</span>
-       <a href="#30" style="color:white;">맨 위로</a>
+       <!-- <a href="#30" style="color:black;">맨 위로</a> -->
      </p>
      <div style="text-align:left; margin-left:15%; margin-top:30px; margin-bottom:100px;">
         <span v-for="(item, index) in $store.state.imageTop" v-bind:key="index">
@@ -14,29 +14,8 @@
           </router-link> 
         </span>
      </div>
-
-    <div id="30" style="margin-top:1000px;">
-        30평형
-    </div>
-
-
-     <!-- 사용자 정보 -->
-     <hr width = "80%" color = "gray" style="margin: auto;">
-     <p class="size24" style="text-align:left; margin-top:30px; margin-left:10%">Information
-       <span class="text">판매자 정보</span>
-     </p>
-     <p class="size18" style="margin-bottom:0px; margin-top:50px; font-weight:560">
-       <span>CEO 김철수</span>
-       <span>Business License  000-00-00000</span>
-       <span>Location  대구광역시 중구</span>
-       <span></span>
-     </p>
-     <p class="size18"> 
-       <span>Tel  0000-0000</span>
-       <span>E-Mail  abc@abc.com</span>
-       <span>FAX  0000-000-0000</span> 
-     </p>
-
+      <!-- <div id="30" style="margin-top:1000px;">
+      </div> -->
   </div>
 </template>
 

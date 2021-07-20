@@ -13,22 +13,7 @@
           </span>
      </div>
 
-     <!-- 사용자 정보 -->
-     <hr width = "80%" color = "gray" style="margin: auto;">
-     <p class="size24" style="text-align:left; margin-top:30px; margin-left:10%">Information
-       <span class="text">판매자 정보</span>
-     </p>
-     <p class="size18" style="margin-bottom:0px; margin-top:50px; font-weight:560">
-       <span>CEO 김철수</span>
-       <span>Business License  000-00-00000</span>
-       <span>Location  대구광역시 중구</span>
-       <span></span>
-     </p>
-     <p class="size18"> 
-       <span>Tel  0000-0000</span>
-       <span>E-Mail  abc@abc.com</span>
-       <span>FAX  0000-000-0000</span> 
-     </p>
+
 
   </div>
 </template>

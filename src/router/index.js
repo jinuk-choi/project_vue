@@ -19,6 +19,7 @@ import SalesData from '../views/Admin/Situation/SalesData.vue'
 import Top from '../views/User/Tab/Top.vue'
 import Pants from '../views/User/Tab/Pants.vue'
 import Product_User from '../views/User/Product.vue'
+import BoardList from '../views/User/Tab/BoardList.vue'
 
 Vue.use(VueRouter)
 
@@ -32,6 +33,11 @@ const routes = [
         path:'product/:id',
         name:'Product_User',
         component: Product_User
+      },
+      {
+        path:'/board/boardlist'
+        ,name:'BoardList'
+        ,component:BoardList
       },
     ]
   },
