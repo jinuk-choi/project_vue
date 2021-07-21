@@ -1,14 +1,9 @@
 
 <template>
-  <v-simple-table>
-    <template v-slot:default>
-      <thead>
-        <v-container>
-            <v-row
-              class="mb-6"
-              justify="left"
-              no-gutters>
-              <v-col lg="3">
+  
+        <v-container fluid>
+            <v-row no-gutters>
+              <v-col   sm="1" >
                 <v-card
                   class="pa-2"
                   outlined
@@ -21,7 +16,7 @@
                 </select>
                 </v-card>
               </v-col>
-              <v-col md="auto">
+              <v-col  sm="2">
                 <v-card
                   class="pa-2"
                   outlined
@@ -29,64 +24,87 @@
                   <input v-model="search"  type="text" placeholder="search.." class="form-group">
                 </v-card>
               </v-col>
-              <v-col lg="1">
+              <v-col  sm="1">
                 <v-btn @click="BoardSearch({type: selected, keyword: search, page: page})">검색</v-btn>
               </v-col>
-              <v-col lg="1">
-                <v-btn router :to="{name:'boardwrite'}" >글쓰기</v-btn>
+              <v-col sm="1">
+                <v-btn router :to="{name:'BoardWrite'}" >글쓰기</v-btn>
+              </v-col>
+            </v-row>
+
+            <v-row no-gutters>
+              <v-col  md="2" >
+              </v-col>
+              <v-col  md="8"  >
+                <v-simple-table>
+                <template v-slot:default>
+                <thead>
+                <tr>
+                  <th  class="text-left">
+                    NO
+                  </th>
+                  <th  class="text-left">
+                    제목
+                  </th>
+                  <th  class="text-left">
+                    내용
+                  </th>
+                  <th   class="text-left">
+                    작성자
+                  </th>
+                  <th   class="text-left">
+                    조회수
+                  </th>
+                  <th   class="text-left">
+                    작성일
+                  </th>
+                </tr>
+                <tbody>
+                  <tr tr style="cursor:pointer;"
+                    v-for="item in List"
+                    :key="item.aIdx"
+                    @click="boardDetail(item.aIdx)"
+                  >
+                    <td style="width: 100px;" >{{ item.rownum }}</td>
+                    <td style="width: 5000px;" >
+                      <span v-if="item.aDepth > 1">
+                        <span v-for="n in item.aDepth-1" v-bind:key="n">ㄴ</span>
+                      </span> {{ item.aTitle }}
+                    </td>
+                    <td  >{{ item.aContent }}</td>
+                    <td  >{{ item.user.name }}</td>
+                    <td  >{{ item.aCount }}</td>
+                    <td  >{{ item.aDate }}</td>
+                  </tr>
+                </tbody>
+                 </thead>
+               </template>
+               </v-simple-table>
+              </v-col>
+              <v-col  md="2" >
+              </v-col>
+            </v-row>
+
+            <v-row
+              class="mb-6"
+              no-gutters>
+              <v-col lg="4">
+              </v-col>
+              <v-col md="auto">
+                <div  class="text-xs-center">
+                  <v-pagination
+                    v-model="page"
+                    :length="pagination.lastPage"
+                    :total-visible="5"
+                    @input="next(page)"
+                  ></v-pagination>
+                </div>
+              </v-col>
+              <v-col lg="4">
               </v-col>
             </v-row>
         </v-container> 
-          <tr>
-            <th style="width: 900px;" class="text-left">
-              NO
-            </th>
-            <th style="width: 100px;" class="text-left">
-              제목
-            </th>
-            <th style="width: 100px;" class="text-left">
-              내용
-            </th>
-            <th style="width: 100px;" class="text-left">
-              작성자
-            </th>
-            <th style="width: 80px;" class="text-left">
-              조회수
-            </th>
-            <th style="width: 100px;" class="text-left">
-              작성일
-            </th>
-          </tr>
-      </thead>
-        <tbody>
-          <tr 
-            v-for="item in List"
-            :key="item.aIdx"
-            @click="boardDetail(item.aIdx)"
-          >
-            <td>{{ item.rownum }}</td>
-            <td>
-              <span v-if="item.aDepth > 1">
-                <span v-for="n in item.aDepth-1" v-bind:key="n">ㄴ</span>
-              </span> {{ item.aTitle }}
-            </td>
-            <td>{{ item.aContent }}</td>
-            <td>{{ item.user.name }}</td>
-            <td>{{ item.aCount }}</td>
-            <td>{{ item.aDate }}</td>
-          </tr>
-        </tbody>
-        <div  class="text-xs-center">
-          <v-pagination
-            v-model="page"
-            :length="pagination.lastPage"
-            :total-visible="5"
-            @input="next(page)"
-          ></v-pagination>
-        </div>
-    </template>
-  </v-simple-table>
-  
+     
 </template>
 
 <script>
@@ -100,7 +118,7 @@ export default {
         page: 1,
         List: [],
         selected: '',
-        search:''
+        search:'',
       }
   },
   

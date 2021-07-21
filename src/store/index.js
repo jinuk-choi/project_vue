@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import router from "../router";
+import Route from '../router/index'
 import axios from 'axios'
 
 Vue.use(Vuex)
@@ -117,6 +117,9 @@ export default new Vuex.Store({
       {text:'상세보기', value:''},
     ],
     salesdata:[],
+
+    //게시판 상세보기
+    board_detail:[],
   },
   getters: {
     get_orderDetailList: state => {
@@ -225,9 +228,11 @@ export default new Vuex.Store({
         data[i].rank = i+1;
       }
       state.ranking = data
-    },    
-
-
+    },
+    SET_BOARDDETAIL(state,data) {
+      state.board_detail=data
+      Route.push("/boardDetail/"+data.aIdx)
+    },
   },
   actions: {
     CategoryList({commit}) {
@@ -788,6 +793,26 @@ export default new Vuex.Store({
         })
       })      
     },
+    boardDetail({commit},payload) {
+      return new Promise((resolve, reject) => {
+        axios.get('http://localhost:9100/api/boardDetail', {
+          params: {
+            aIdx: payload
+          }
+        })
+            .then(Response => {
+                console.log(Response.data)
+                commit('SET_BOARDDETAIL', Response.data)
+            })
+            .catch(Error => {
+                console.log('error')
+                reject(Error)
+            })
+      })
+     },
+
+
+
   },
   modules: {
   }

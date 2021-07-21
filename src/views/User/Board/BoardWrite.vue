@@ -1,12 +1,15 @@
 <template>
     <v-flex xs12 >
         <v-form style="width:800px;margin:0 auto;">
-            <span>작성자: {{ Userinfo.User_Name }}</span>
+            <v-text-field
+                v-model="uName"
+                label="작성자"
+                readonly
+            ></v-text-field>
             <v-text-field
                 v-model="aTitle"
                 label="제목"
                 type="text"
-               
             ></v-text-field>
             <v-textarea
                 v-model="aContent"
@@ -38,9 +41,12 @@ export default {
                 default : 0
             }
         },
-
+    created() {
+       console.log( this.$store.state.Userinfo)
+    },
     data() {
         return {
+            uName: this.$store.state.Userinfo.User_Name,
             aTitle: null,
             aContent: null,
            
@@ -51,12 +57,12 @@ export default {
     },
     methods: {
         boardWrite(payload) {
-          payload.uIdx = this.Userinfo.User_Idx
+          payload.uId = this.Userinfo.User_Id
           return new Promise((resolve, reject) => {
-            axios.post('http://localhost:9100/api/test/boardWrite', payload)
+            axios.post('http://localhost:9100/api/boardWrite', payload)
                 .then(Response => {
                     console.log(Response.data)
-                     Route.push("/board/boardlist")
+                     Route.push("/boardlist")
                 })
                     .catch(Error => {
                         console.log('error')

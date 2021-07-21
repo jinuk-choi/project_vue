@@ -20,6 +20,8 @@ import Top from '../views/User/Tab/Top.vue'
 import Pants from '../views/User/Tab/Pants.vue'
 import Product_User from '../views/User/Product.vue'
 import BoardList from '../views/User/Tab/BoardList.vue'
+import BoardDetail from '../views/User/Board/BoardDetail.vue'
+import BoardWrite from '../views/User/Board/BoardWrite.vue'
 
 Vue.use(VueRouter)
 
@@ -35,9 +37,19 @@ const routes = [
         component: Product_User
       },
       {
-        path:'/board/boardlist'
+        path:'/boardlist'
         ,name:'BoardList'
         ,component:BoardList
+      },
+      {
+        path:'/boardDetail/:aIdx'
+        ,name:'BoardDetail'
+        ,component:BoardDetail
+      },
+      {
+        path:'/boardWrite'
+        ,name:'BoardWrite'
+        ,component:BoardWrite
       },
     ]
   },
