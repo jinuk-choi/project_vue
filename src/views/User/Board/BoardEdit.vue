@@ -36,10 +36,10 @@ export default {
         boardEdit(payload) {
           payload.aIdx = this.board_detail.aIdx
           return new Promise((resolve, reject) => {
-            axios.post('http://localhost:9100/api/test/boardEdit', payload)
+            axios.post('http://localhost:9100/api/boardEdit', payload)
                 .then(Response => {
                     console.log(Response.data)
-                     Route.push("/board/boardlist")
+                     Route.push("/boardlist")
                 })
                     .catch(Error => {
                         console.log('error')

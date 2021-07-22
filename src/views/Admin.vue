@@ -10,6 +10,7 @@
       tile
       >
        <v-subheader>목록</v-subheader>
+        <!-- 회원관리 탭 -->
         <v-list dense>
           <v-menu
             open-on-hover
@@ -38,7 +39,7 @@
             </v-list>
           </v-menu>
         </v-list>
-
+        <!-- 쇼핑몰관리 탭 -->
         <v-list dense>
           <v-menu
             open-on-hover
@@ -67,7 +68,7 @@
             </v-list>
           </v-menu>
         </v-list>
-
+        <!-- 쇼핑몰현황 탭 -->
         <v-list dense>
           <v-menu
             open-on-hover
@@ -108,7 +109,7 @@
       <span style="padding-left:0px;" v-else>
         <v-btn color="grey darken-4" class="ml-3" @click="LogOut()">로그아웃</v-btn>
       </span>
-        <v-btn color="indigo darken-4" class="mr-15" absolute right  router :to="{name: 'Home'}"> <span class="white--text">홈페이지로 이동</span> </v-btn>
+        <v-btn color="indigo darken-4" class="mr-15" absolute right  router :to="{name: 'Main'}"> <span class="white--text">홈페이지로 이동</span> </v-btn>
     </v-app-bar>
 
     <v-main>
@@ -132,8 +133,9 @@
 import { mapActions } from "vuex"
 
 export default {
-  name: 'Admin',
-
+  created(){
+      this.$store.state.login_prev = 2;
+    },
   data: () => ({
     drawer: true,
     selectedItem: 1,

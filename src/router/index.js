@@ -17,13 +17,28 @@ import Ranking from '../views/Admin/Situation/Ranking.vue'
 import Sales from '../views/Admin/Situation/Sales.vue'
 import SalesData from '../views/Admin/Situation/SalesData.vue'
 import Top from '../views/User/Tab/Top.vue'
+import LongTop from '../views/User/Tab/LongTop.vue'
+import ShortTop from '../views/User/Tab/ShortTop.vue'
 import Pants from '../views/User/Tab/Pants.vue'
+import LongPants from '../views/User/Tab/LongPants.vue'
+import ShortPants from '../views/User/Tab/ShortPants.vue'
 import Product_User from '../views/User/Product.vue'
 import BoardList from '../views/User/Tab/BoardList.vue'
 import BoardDetail from '../views/User/Board/BoardDetail.vue'
 import BoardWrite from '../views/User/Board/BoardWrite.vue'
+import boardEdit from '../views/User/Board/BoardEdit.vue'
+import Main from '../views/User/Main.vue'
+import store from '../store'
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
+
+const requireAuth = () => (to, from, next) => {
+  var login_auth = store.state.Userinfo.User_auth[0]
+  if (login_auth == 'ROLE_ADMIN') {
+    return next();
+  }
+  next('/Login');
+};
 
 const routes = [
   {
@@ -50,6 +65,47 @@ const routes = [
         path:'/boardWrite'
         ,name:'BoardWrite'
         ,component:BoardWrite
+        ,props: true
+      },
+      {
+        path:'/boardEdit'
+        ,name:'boardEdit'
+        ,component:boardEdit
+      },
+      {
+        path:'/Main'
+        ,name:'Main'
+        ,component:Main
+      },
+      {
+        path:'/Top'
+        ,name:'Top'
+        ,component:Top
+      },
+      {
+        path:'/LongTop'
+        ,name:'LongTop'
+        ,component:LongTop
+      },
+      {
+        path:'/ShortTop'
+        ,name:'ShortTop'
+        ,component:ShortTop
+      },
+      {
+        path:'/Pants'
+        ,name:'Pants'
+        ,component:Pants
+      },
+      {
+        path:'/LongPants'
+        ,name:'LongPants'
+        ,component:LongPants
+      },
+      {
+        path:'/ShortPants'
+        ,name:'ShortPants'
+        ,component:ShortPants
       },
     ]
   },
@@ -78,6 +134,8 @@ const routes = [
     path: '/Admin',
     name: 'Admin',
     component: Admin,
+    beforeEnter: requireAuth(),
+
     children: [
       { 
         path: 'Order',

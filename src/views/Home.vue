@@ -18,7 +18,7 @@
       </v-layout>
       <v-layout>
         <v-spacer/>
-        <router-link to='/' style="color:#263238; text-decoration:none">  
+        <router-link to='/Main' style="color:#263238; text-decoration:none">  
           <v-toolbar-title style="font-size:30px; font-weight:750;">ShoppingMall</v-toolbar-title>     
         </router-link>
         <v-spacer/>
@@ -30,7 +30,7 @@
             color="blue darken-1"
           >
             <!-- 홈탭 -->
-            <v-tab style="width:140px;" @click="category('Home')">Home</v-tab>
+            <v-tab style="width:140px;" router :to="{name: 'Main'}">Main</v-tab>
 
             <!-- TOP 탭 -->
             <v-menu
@@ -38,22 +38,22 @@
               bottom
               offset-y
             >
-            <template v-slot:activator="{ on, attrs }">
-              <v-tab  v-bind="attrs"
-                      v-on="on"
-                      @click="category('Top')"
-                      style="width:140px;">TOP                  
-              </v-tab>
-            </template>
-            <v-list>
-              <v-list-item
-                v-for="(item, index) in TOP"
-                :key="index"
-                @click="move()"
-              >
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
-              </v-list-item>
-            </v-list>
+              <template v-slot:activator="{ on, attrs }">
+                <v-tab  v-bind="attrs"
+                        v-on="on"
+                        router :to="{name: 'Top'}"
+                        style="width:140px;">TOP                  
+                </v-tab>
+              </template>
+              <v-list>
+                <v-list-item
+                  v-for="(item, index) in TOP"
+                  :key="index"
+                  router :to="{name: item.name}"
+                >
+                  <v-list-item-title>{{ item.title }}</v-list-item-title>
+                </v-list-item>
+              </v-list>
             </v-menu>
 
             <!-- PANTS 탭 -->
@@ -62,27 +62,28 @@
               bottom
               offset-y
             >
-            <template v-slot:activator="{ on, attrs }">
-              <v-tab    v-bind="attrs"
-                        v-on="on"
-                        @click="category('Pants')"
-                        style="width:140px;">PANTS
-              </v-tab>
-            </template>
-            <v-list>
-              <v-list-item
-                v-for="(item, index) in PANTS"
-                :key="index"
-                @click="move()"
-              >
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
-              </v-list-item>
-            </v-list>
+              <template v-slot:activator="{ on, attrs }">
+                <v-tab    v-bind="attrs"
+                          v-on="on"
+                          router :to="{name: 'Pants'}"
+                          style="width:140px;">PANTS
+                </v-tab>
+              </template>
+              <v-list>
+                <v-list-item
+                  v-for="(item, index) in PANTS"
+                  :key="index"
+                  router :to="{name: item.name}"
+                >
+                  <v-list-item-title>{{ item.title }}</v-list-item-title>
+                </v-list-item>
+              </v-list>
             </v-menu>
 
             <!-- 상품 문의 -->
             <v-tab style=" color:grey; width:140px;" router :to="{name: 'BoardList'}">Q&A</v-tab>
 
+            <!-- 관리자 페이지 -->
             <v-tab style="background-color:lightgrey; color:black; width:140px;" router :to="{name: 'Admin'}">관리자 페이지</v-tab>
         </v-tabs>
        </v-layout>
@@ -91,37 +92,17 @@
 
     <v-main>
       <v-container>
-  
-      <v-row style="text-align:center">
-
-        <!-- 원래코드
-         <Main v-if="$route.name == 'Home'"></Main>
-         <router-view/>
-         -->
-
-        <!-- <Main v-if="'Home' == this.Tab"></Main>
-        <Top v-if="'Top' == this.Tab"></Top>
-        <Pants v-if="'Pants' == this.Tab"></Pants> -->
-         <router-view/> 
-
-        <!-- 
-        <Main v-if="'Home' == this.Tab"></Main>
-        <Living v-if="'Living' == this.Tab"></Living>
-        <Materials v-if="'Materials' == this.Tab"></Materials> 
-        -->
-
-        <!-- <Main v-if="this.Tab == 'Home'"></Main>
-        <Living v-if="this.Tab == 'Living'"></Living> -->
-        <!-- <router-view :key="$route.fullPath"/> -->
-      </v-row>
-
+        <v-row style="text-align:center">
+          <router-view/> 
+        </v-row>
       </v-container>
     </v-main>
+
+<!-- 사용자 정보 -->
       <v-footer
         color="white"
         app
       >
-      <!-- 사용자 정보 -->
         <hr width = "100%" color = "gray" style="margin: auto;">
         <p class="size18" style="margin-bottom:0px; margin-top:10px; margin-left:100px; font-weight:560;">
           <span>대표이사: 김철수</span>
@@ -138,7 +119,6 @@
           <br/>
           <span>FAX: 0000-000-0000</span> 
         </p>
-        
       </v-footer>
   </v-app>
 </template>
@@ -162,38 +142,25 @@
 <script>
 // @ is an alias to /src
 import { mapActions } from "vuex"
-import Main from '../views/User/Main.vue'
-import Top from './User/Tab/Top.vue'
-import Pants from './User/Tab/Pants.vue'
 
 export default {
   created(){
       this.$store.state.login_prev = 1;
     },
-  name: 'Home',
-  components: {
-    Main, Top, Pants
-  },
-   data: () => ({ 
-      Tab: 'Home',
-      TOP: [
-        { title: '반팔', name:'Product'},
-        { title: '긴팔', name:'Product'},
-      ],
-      PANTS: [
-        { title: '반바지', name:'Product'},
-        { title: '긴바지', name:'Product'},
-      ],
-  
-    }),
+
+  data: () => ({ 
+    TOP: [
+      { title: '반팔', name:'ShortTop'},
+      { title: '긴팔', name:'LongTop'},
+    ],
+    PANTS: [
+      { title: '반바지', name:'ShortPants'},
+      { title: '긴바지', name:'LongPants'},
+    ],
+  }),
+
   methods:{
-    ...mapActions(["LogOut"]),
-    category(text){
-      this.Tab = text;
-    },
-    move(){
-      window.scrollTo(0,500);
-    }
-  },
+    ...mapActions(["LogOut"])
+  }
 }
 </script>

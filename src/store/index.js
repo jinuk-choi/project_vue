@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import Route from '../router/index'
+import router from '../router/index'
 import axios from 'axios'
 
 Vue.use(Vuex)
@@ -12,7 +12,7 @@ export default new Vuex.Store({
     all: '전체',
     sales_flag: 0,
     login_flag: false, //로그인 성공시 1로 바뀌고 로그인 하지않았을 때나 로그아웃 시 0으로 바뀐다. 
-    login_prev: 2,
+    login_prev: 0,
 
     //사용자단
     imageByRank:[], //홈화면 랭킹
@@ -231,7 +231,7 @@ export default new Vuex.Store({
     },
     SET_BOARDDETAIL(state,data) {
       state.board_detail=data
-      Route.push("/boardDetail/"+data.aIdx)
+      router.push("/boardDetail/"+data.aIdx)
     },
   },
   actions: {
@@ -660,10 +660,10 @@ export default new Vuex.Store({
                       localStorage.setItem("token", Response.data.token)
                       commit('SET_USER', Response.data)  
                         if(this.state.login_prev == 0){
-                          router.push({ name: 'Home' })   
+                          router.push({ name: 'Main' })   
                         }
                         else if(this.state.login_prev == 1){
-                          router.push({ name: 'Home' })   
+                          router.push({ name: 'Main' })   
                         }
                         else if(this.state.login_prev == 2){
                           router.push({ name: 'Admin' })

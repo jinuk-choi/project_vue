@@ -51,7 +51,6 @@ import {mapActions } from "vuex"
       Update(category) {
           var login_flag = this.$store.state.login_flag
           if(login_flag == true){
-            // var auth = this.$store.state.Userinfo.User_auth[0].authority
             var login_auth = this.$store.state.Userinfo.User_auth[0]
             var refresh_auth = this.$store.state.Userinfo.User_auth[0].authority
             

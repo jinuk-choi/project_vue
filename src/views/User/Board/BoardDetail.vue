@@ -46,7 +46,7 @@ export default {
 
       BoardDelete(aIdx) {
         return new Promise((resolve, reject) => {
-          axios.delete('http://localhost:9100/api/test/boardDelete/'+aIdx)
+          axios.delete('http://localhost:9100/api/boardDelete/'+aIdx)
               .then(Response => {
                   console.log(Response.data)
                   Route.push("/boardlist")
