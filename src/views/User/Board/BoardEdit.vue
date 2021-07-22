@@ -24,8 +24,8 @@ import Route from '@/router/index'
 export default {
     data() {
         return {
-            aTitle: null,
-            aContent: null,
+            aTitle: this.$store.state.board_detail.aTitle,
+            aContent: this.$store.state.board_detail.aContent,
            
         }
     },

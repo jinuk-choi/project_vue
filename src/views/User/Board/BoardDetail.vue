@@ -15,7 +15,7 @@
       </tr>
       <tr>
         <td colspan="2" style="border:none;text-align:right;border-top:3px double #ededed">
-          <v-btn  router :to="{name:'boardwrite', params:{aDepth: board_detail.aDepth
+          <v-btn  router :to="{name:'BoardWrite', params:{aDepth: board_detail.aDepth
                                                           ,aGroup: board_detail.aGroup
                                                           ,aOrder: board_detail.aOrder}}">답글</v-btn>
           <v-btn  router :to="{name:'boardEdit'}">수정</v-btn>
