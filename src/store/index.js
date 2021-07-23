@@ -15,9 +15,11 @@ export default new Vuex.Store({
     login_prev: 0,
 
     //사용자단
-    imageByRank:[], //홈화면 랭킹
-    imageTop:[], //홈화면 거실등
-    imagePants:[], //홈화면 방등
+    imageByRank:[], // Rank image
+    imageTop:[], // Top image
+    imageShortTop:[], // ShortTop image
+    imageLongTop:[], // LongTop image
+    imagePants:[], // Pants image
     
 
      //관리자단 
@@ -36,7 +38,7 @@ export default new Vuex.Store({
     userlist:[],  
 
     //로그인 된 사용자의 정보 
-    Userinfo:{User_Id:null,User_Name:null,User_auth:[],User_token:null},
+    Userinfo:{User_Id:null,User_Name:null,User_auth:['',],User_token:null},
 
     //category
     category_headers: [
@@ -132,6 +134,12 @@ export default new Vuex.Store({
     },
     SET_IMAGE_TOP(state, data){
       state.imageTop = data
+    },
+    SET_IMAGE_SHORT_TOP(state, data){
+      state.imageShortTop = data
+    },
+    SET_IMAGE_LONG_TOP(state, data){
+      state.imageLongTop = data
     },
     SET_IMAGE_PANTS(state, data){
       state.imagePants = data
@@ -773,6 +781,32 @@ export default new Vuex.Store({
         .then(Response => {
           console.log(Response.data)
           commit('SET_IMAGE_TOP',Response.data)
+        })
+        .catch(Error => {
+          console.log('error')
+          reject(Error)
+        })
+      })      
+    },
+    imageLongTop({commit}){
+      return new Promise((resolve, reject) => {
+        axios.get('http://localhost:9100/api/imageLongTop')
+        .then(Response => {
+          console.log(Response.data)
+          commit('SET_IMAGE_LONG_TOP',Response.data)
+        })
+        .catch(Error => {
+          console.log('error')
+          reject(Error)
+        })
+      })      
+    },
+    imageShortTop({commit}){
+      return new Promise((resolve, reject) => {
+        axios.get('http://localhost:9100/api/imageShortTop')
+        .then(Response => {
+          console.log(Response.data)
+          commit('SET_IMAGE_SHORT_TOP',Response.data)
         })
         .catch(Error => {
           console.log('error')

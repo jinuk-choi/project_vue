@@ -20,7 +20,7 @@
           class="pa-2"
           outlined
           tile>
-          <input v-model="search"  type="text" placeholder="search.." class="form-group">
+          <input v-model="search"  type="text" placeholder="검색어를 입력해주세요" class="form-group">
         </v-card>
       </v-col>
       <v-col  sm="1">
