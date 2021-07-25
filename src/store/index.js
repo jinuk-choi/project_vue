@@ -20,6 +20,8 @@ export default new Vuex.Store({
     imageShortTop:[], // ShortTop image
     imageLongTop:[], // LongTop image
     imagePants:[], // Pants image
+    imageLongPants:[], // LongPants image
+    imageShortPants:[], // ShortPants image
     
 
      //관리자단 
@@ -142,7 +144,13 @@ export default new Vuex.Store({
       state.imageLongTop = data
     },
     SET_IMAGE_PANTS(state, data){
+      state.imageLongPants = data
+    },
+    SET_IMAGE_LONG_PANTS(state, data){
       state.imagePants = data
+    },
+    SET_IMAGE_SHORT_PANTS(state, data){
+      state.imageShortPants = data
     },
     SET_CATEGORY(state, data) {
       state.categorylist = data
@@ -820,6 +828,32 @@ export default new Vuex.Store({
         .then(Response => {
           console.log(Response.data)
           commit('SET_IMAGE_PANTS',Response.data)
+        })
+        .catch(Error => {
+          console.log('error')
+          reject(Error)
+        })
+      })      
+    },
+    imageLongPants({commit}){
+      return new Promise((resolve, reject) => {
+        axios.get('http://localhost:9100/api/imageLongPants')
+        .then(Response => {
+          console.log(Response.data)
+          commit('SET_IMAGE_LONG_PANTS',Response.data)
+        })
+        .catch(Error => {
+          console.log('error')
+          reject(Error)
+        })
+      })      
+    },
+    imageShortPants({commit}){
+      return new Promise((resolve, reject) => {
+        axios.get('http://localhost:9100/api/imageShortPants')
+        .then(Response => {
+          console.log(Response.data)
+          commit('SET_IMAGE_SHORT_PANTS',Response.data)
         })
         .catch(Error => {
           console.log('error')
