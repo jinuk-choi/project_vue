@@ -40,7 +40,7 @@ export default new Vuex.Store({
     userlist:[],  
 
     //로그인 된 사용자의 정보 
-    Userinfo:{User_Id:null,User_Name:null,User_auth:['',],User_token:null},
+    Userinfo:{User_Id:null,User_Name:null,User_auth:[' '],User_token:null},
 
     //category
     category_headers: [
@@ -144,10 +144,10 @@ export default new Vuex.Store({
       state.imageLongTop = data
     },
     SET_IMAGE_PANTS(state, data){
-      state.imageLongPants = data
+      state.imagePants = data
     },
     SET_IMAGE_LONG_PANTS(state, data){
-      state.imagePants = data
+      state.imageLongPants = data
     },
     SET_IMAGE_SHORT_PANTS(state, data){
       state.imageShortPants = data

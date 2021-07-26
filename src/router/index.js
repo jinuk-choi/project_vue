@@ -43,6 +43,7 @@ const requireAuth = () => (to, from, next) => {
 const routes = [
   {
     path: '/',
+    redirect: '/Main',
     name: 'Home',
     component: Home,
     children:[
@@ -119,17 +120,6 @@ const routes = [
     name:'Join',
     component: Join
   },
-  {
-    path:'/Top',
-    name:'Top',
-    component: Top
-  },
-  {
-    path:'/Pants',
-    name:'Pants',
-    component: Pants
-  },
-
   {
     path: '/Admin',
     name: 'Admin',
