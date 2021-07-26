@@ -2,19 +2,19 @@
     <v-flex xs12 >
         <v-form style="width:500px;margin:0 auto;">
         <v-rating class="text-left"
-            v-model="rating"
+            v-model="cRating"
             background-color="orange lighten-3"
             color="orange"
             large
         ></v-rating>
             <v-textarea class="ml-2"
-                v-model="bContent"
+                v-model="cContent"
                 rows="1"
                 label="입력해주세요"
                 type="text"
             ></v-textarea>
             <v-col class="text-right"> 
-                <v-btn color="primary" @click="CommentWrite({bContent})">사용후기쓰기</v-btn>
+                <v-btn color="primary" @click="CommentWrite({cContent})">사용후기쓰기</v-btn>
             </v-col>
         </v-form>       
     </v-flex>
@@ -30,8 +30,8 @@ export default {
 
     data() {
         return {
-            bContent: null,
-            rating: 4,
+            cContent: null,
+            cRating: 4,
         }
     },
     
