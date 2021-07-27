@@ -2,30 +2,27 @@
   <v-flex xs12>
         <table
             v-for="item in List"
-            :key="item.bIdx"
+            :key="item.cId"
         >
-        <td v-show="!item.bTn">
-          <tr style="font-size:0.9rem;">
-            <td style="text-align:left">작성자: {{board_detail.user.name}}
+        <tr v-show="!item.bTn">
+            <td style="text-align:left; font-size:0.9rem;">작성자: {{item.user.name}}</td>
+            <td style="text-align:left; font-size:0.9rem;">작성일: {{item.cDate}} </td>
+            <td style="text-align:left; font-size:0.9rem;">
+              <v-rating
+                v-model="item.cRating"
+                background-color="orange lighten-3"
+                color="orange"
+                small
+              ></v-rating> 
             </td>
-          </tr>
-          <tr style="font-size:0.9rem;">
-            <td style="text-align:left">작성일: {{item.bRedate}} </td>
-          </tr>
-          <tr style="font-size:0.9rem;">
-            <span v-if="item.bDepth > 1">
-                <span v-for="n in item.bDepth-1" v-bind:key="n">ㄴ</span>
-            </span>
-            <td style="text-align:left"> {{item.bContent}} </td>
-          </tr>
-        </td>
+        </tr>
           <v-row v-show="item.bTn">
             <v-col
               cols="10"
               sm="10"
             >
             <v-textarea
-              v-model="bContent"
+              v-model="cContent"
               type="text"
               auto-grow
               outlined
@@ -34,16 +31,21 @@
             ></v-textarea>
            </v-col>
           </v-row>
-          <td colspan="1" style="border:none;text-align:right;border-top:1px double #ededed" v-show= "!item.bTn">
-            <v-btn @click="item.bTn = !item.bTn">답글</v-btn>
+        <tr v-show="!item.bTn">
+         <td style="font-size:0.9rem;">{{item.cContent}}</td>
+        </tr>
+        <tr style="border:none; text-align:right; border-top:1px double #ededed" v-show= "!item.bTn">
+          <td>
             <v-btn @click="item.bTn = !item.bTn">수정</v-btn>
-            <v-btn @click="CommentDelete(item.bIdx,item.aIdx)">삭제</v-btn>
+            <v-btn @click="CommentDelete(item.cId,item.id)">삭제</v-btn>
           </td>
-          <td colspan="1" style="border:none;text-align:right;border-top:1px double #ededed" v-show="item.bTn">
-            <v-btn @click="CommentWrite({bGroup: item.bGroup, bOrder: item.bOrder,bDepth: item.bDepth, bContent: bContent}), item.bTn = !item.bTn">등록</v-btn>
-            <v-btn @click="CommentEdit({bIdx: item.bIdx,bContent: bContent })">수정</v-btn>
-            <v-btn @click="item.bTn = !item.bTn">취소</v-btn>
-          </td>
+        </tr>
+          <tr style="border:none;text-align:right;border-top:1px double #ededed" v-show="item.bTn">
+            <td>
+              <v-btn @click="CommentEdit({cId: item.cId,cContent: cContent })">수정</v-btn>
+              <v-btn @click="item.bTn = !item.bTn">취소</v-btn>
+            </td>
+          </tr>
       </table>
       <div class="text-xs-center">
         <v-pagination
@@ -60,17 +62,17 @@ import { mapActions, mapState } from "vuex"
 import axios from 'axios'
 export default {
     props: {
-      aIdx: Number 
+      id: Number 
     },
 
     data() {
       return {
-        pagination: null,
+        pagination: {},
         page: 1,
-        List: null,
+        List: [],
+        cContent: null,
         bTn: false,
-        eDit: false,
-        bContent: null,
+        cRating: null
       }
     
     },
@@ -79,38 +81,15 @@ export default {
     },
 
     computed: {
-       ...mapState(["board_detail"]),
        ...mapState(["Userinfo"])
     },
     methods: {
-      CommentWrite(payload) {
-          payload.uIdx = this.Userinfo.User_Idx
-          payload.aIdx = this.board_detail.aIdx
-          return new Promise((resolve, reject) => {
-            axios.post('http://localhost:9100/api/test/commentWrite/', payload, {
-              params: {
-                aIdx: this.aIdx
-              } 
-            })
-               .then(Response => {
-                  console.log(Response.data)
-                  this.pagination = Response.data
-                  this.List = this.pagination.list
-                  
-              })
-                    .catch(Error => {
-                        console.log('error')
-                        reject(Error)
-                    })
-          })
-        },
-
         CommentEdit(payload) {
-          payload.aIdx = this.board_detail.aIdx
+          payload.id = this.id
           return new Promise((resolve, reject) => {
-            axios.post('http://localhost:9100/api/test/commentEdit/', payload, {
+            axios.post('http://localhost:9100/api/commentEdit/', payload, {
               params: {
-                aIdx: this.aIdx
+                id: this.id
               } 
             })
                .then(Response => {
@@ -127,20 +106,17 @@ export default {
         },
 
 
-      CommentDelete(bIdx) {
+      CommentDelete(cId) {
         return new Promise((resolve, reject) => {
-          axios.delete('http://localhost:9100/api/test/commentDelete/'+bIdx, {
+          axios.delete('http://localhost:9100/api/commentDelete/'+cId, {
              params: {
-                aIdx: this.aIdx
+                id: this.id
             } 
           })
               .then(Response => {
                   console.log(Response.data)
                   this.pagination = Response.data
                   this.List = this.pagination.list
-                  //this.aIdx = this.List.aIdx
-                  console.log('-------')
-                  console.log(this.List)
                   
               })
               .catch(Error => {
@@ -150,9 +126,9 @@ export default {
         })
       },
       next (page) {
-        axios.get('http://localhost:9100/api/test/commentList/'+page, {
+        axios.get('http://localhost:9100/api/commentList/'+page, {
           params: {
-                aIdx: this.aIdx
+                id: this.id
             } 
         })
           .then(Response => {
@@ -168,9 +144,9 @@ export default {
       },
       commentList() {
         return new Promise((resolve, reject) => {
-          axios.get('http://localhost:9100/api/test/commentList', {
+          axios.get('http://localhost:9100/api/commentList', {
             params: {
-                aIdx: this.aIdx
+                id:this.id
             }    
           })
               .then(Response => {

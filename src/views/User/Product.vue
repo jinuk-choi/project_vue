@@ -62,17 +62,12 @@
 <!-- 구매 후기 -->
     <v-divider></v-divider>
     <v-row style="margin-top:50px; margin-bottom:50px;">
-      <v-col
-        cols="6"
-        lg="6"
-        sm="6"
-        md="6"
-      >
       <h2 style="margin-right:50%; margin-bottom:50px;">사용후기</h2>
-        <CommentWrite></CommentWrite>
-        <p></p>
-        <CommentList></CommentList>
-      </v-col>
+        <CommentWrite :id="this.id"></CommentWrite>
+    </v-row>
+    <v-divider></v-divider>
+    <v-row style="margin-top:50px; margin-bottom:50px;">
+      <CommentList :id="this.id"></CommentList>
     </v-row>
 
   <!-- 유의 사항 -->  
@@ -93,9 +88,6 @@
 <script>
 import CommentList from '@/views/User/Comment/CommentList.vue'
 import CommentWrite from '@/views/User/Comment/CommentWrite.vue'
-import Route from '@/router/index'
-import { mapActions, mapState } from "vuex"
-import axios from 'axios'
 
 export default {
   components: {
@@ -108,9 +100,7 @@ export default {
     },
   data () {
     return {     
-      id:{
-          id: this.$route.params.id, 
-          },
+      id: this.$route.params.id, 
       name: this.$store.state.product[0].name,
       price: this.$store.state.product[0].price,
       quantity: this.$store.state.product[0].quantity,

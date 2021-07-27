@@ -25,7 +25,7 @@ import axios from 'axios'
 import Route from '@/router/index'
 export default {
     props: {
-      aIdx: Number 
+      id: Number 
     },
 
     data() {
@@ -37,16 +37,16 @@ export default {
     
     computed: {
         ...mapState(["Userinfo"]),
-        ...mapState(["board_detail"])
     },
     methods: {
         CommentWrite(payload) {
-          payload.uIdx = this.Userinfo.User_Idx
-          payload.aIdx = this.board_detail.aIdx
+          payload.uId = this.Userinfo.User_Id
+          payload.id = this.id
+          payload.cRating = this.cRating
           return new Promise((resolve, reject) => {
-            axios.post('http://localhost:9100/api/test/commentWrite/', payload, {
+            axios.post('http://localhost:9100/api/commentWrite/', payload, {
               params: {
-                aIdx: this.aIdx
+                id: this.id
               } 
             })
                 .then(Response => {

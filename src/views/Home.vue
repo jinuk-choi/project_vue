@@ -9,7 +9,7 @@
         <span style="padding-left:0px; padding-right:12px;" v-if="this.$store.state.login_flag == 0">
           <v-btn class="ml-8" router :to="{name: 'Login'}">로그인</v-btn>
         </span>
-        <span style="padding-left:0px; padding-right:12px;" v-else>
+        <span style="padding-left:0px; padding-right:12px; " v-else>
           <v-btn class="ml-8" @click="LogOut()">로그아웃</v-btn>
         </span>
         <span style="padding-left:0px; padding-right:12px;" v-if="this.$store.state.login_flag == 0">
