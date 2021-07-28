@@ -52,7 +52,9 @@
           <v-row v-if="this.$store.state.product[0].quantity ==0">
           </v-row>
           <v-row v-else align="center" justify="space-around">
-            <v-btn color="primary" max-width="5" class="mt-6">구매하기</v-btn>
+            <v-btn color="primary" max-width="5" class="mt-6" router :to="{name:'OrderForm', 
+                                                                          params:{id: this.id,
+                                                                          amount: this.amount}}">구매하기</v-btn>
             <v-btn max-width="5" class="mt-6">장바구니</v-btn>
           </v-row>
         </v-card>
@@ -94,7 +96,7 @@ export default {
     CommentList,
     CommentWrite
   },
-
+  
   created(){
       this.$store.dispatch('Product')
     },
@@ -104,15 +106,14 @@ export default {
       name: this.$store.state.product[0].name,
       price: this.$store.state.product[0].price,
       quantity: this.$store.state.product[0].quantity,
-      text: this.$store.state.product[0].text,
-
       amount:1,
+      num:1,
     }
   },
   methods:{
     priceToString(price) {
             return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-        },
+    },
     change(num){
           this.amount += num;
           if(this.amount < 1) {

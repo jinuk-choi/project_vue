@@ -40,7 +40,8 @@ export default new Vuex.Store({
     userlist:[],  
 
     //로그인 된 사용자의 정보 
-    Userinfo:{User_Id:null,User_Name:null,User_auth:[' '],User_token:null},
+    Userinfo:{User_Id:null,User_Name:null,User_auth:[null],User_token:null,
+              User_address:null,User_phone:null,User_email:null},
 
     //category
     category_headers: [
@@ -190,6 +191,9 @@ export default new Vuex.Store({
       state.Userinfo.User_Name = data.name
       state.Userinfo.User_auth = data.roles
       state.Userinfo.User_token = data.token
+      state.Userinfo.User_email = data.email
+      state.Userinfo.User_address = data.address
+      state.Userinfo.User_phone = data.phone
       state.login_flag = true
     },
     SET_USER_REFRESH(state,data) {

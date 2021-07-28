@@ -24,6 +24,17 @@
         <v-spacer/>
       </v-layout>
       <v-layout>
+        <span style="padding-left:30px;" v-show="this.$store.state.login_flag == 1">
+          {{Userinfo.User_Name}}님 환영합니다. &nbsp;
+          <span class="text-decoration-underline">
+            주문내역
+          </span>&nbsp;
+          <span class="text-decoration-underline">
+            장바구니
+          </span>
+        </span>
+      </v-layout>
+      <v-layout>
         <v-tabs
             centered
             class="mt-9"
@@ -124,30 +135,17 @@
   </v-app>
 </template>
 
-<style scoped>
-::v-deep .v-toolbar__content {
-  padding: 0px !important;
-}
-
-@media(min-width: 0px) {
-  .container, .container-lg, .container-md, .container-sm, .container-xl {
-    max-width: 100%;
-  }
-}
-
-.text{
-  color:grey
-}
-</style>
-
 <script>
 // @ is an alias to /src
-import { mapActions } from "vuex"
+import { mapActions,mapState } from "vuex"
 
 export default {
   created(){
       this.$store.state.login_prev = 1;
     },
+  computed: {
+      ...mapState(["Userinfo"])
+  },
 
   data: () => ({ 
     TOP: [
@@ -165,3 +163,19 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+::v-deep .v-toolbar__content {
+  padding: 0px !important;
+}
+
+@media(min-width: 0px) {
+  .container, .container-lg, .container-md, .container-sm, .container-xl {
+    max-width: 100%;
+  }
+}
+
+.text{
+  color:grey
+}
+</style>
