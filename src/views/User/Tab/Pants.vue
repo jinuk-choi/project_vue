@@ -79,8 +79,6 @@ export default {
 div[data-v-fae5bece] {
     width: 2200px;
     height: 100%;
-    /* height: 1800px; */
-    
     background-color: rgb(255, 255, 255);
     margin: 0 auto;
     padding: 0px;

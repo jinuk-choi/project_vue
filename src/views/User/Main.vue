@@ -5,7 +5,7 @@
     max-width="1600"
     >
       <p class="size24" style="text-align:left; margin-top:30px; margin-left:10%">Ranking
-        <span class="text">인기상품</span>
+        <span class="text">Top 5</span>
       </p>
       <v-container fluid>
         <v-row dense>
@@ -15,6 +15,7 @@
             :cols="2"
             class="mr-10 mb-10"
           >
+          <span v-if="index <5">
             <v-card>
               <router-link :to="{name: 'Product_User', params: {id: item.id}}">
                 <v-img
@@ -26,13 +27,14 @@
                 </v-img>
               </router-link> 
                 <v-card-actions>
-                 <p class="size20" style="text-align:left; margin-top:1px; margin-bottom:1px;">{{item.name}}</p>
+                  <p class="size20" style="text-align:left; margin-top:1px; margin-bottom:1px;">{{item.name}}</p>
                  <v-spacer></v-spacer>
                   <v-btn icon>
                     <v-icon>mdi-heart</v-icon>
                   </v-btn>
                 </v-card-actions>
             </v-card>
+          </span>
           </v-col>
         </v-row>
      </v-container>

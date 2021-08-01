@@ -22,7 +22,6 @@
 <script>
 import { mapState,mapActions } from 'vuex'
 import axios from 'axios'
-import Route from '@/router/index'
 export default {
     props: {
       id: Number 

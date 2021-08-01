@@ -92,9 +92,7 @@ import { mapState, mapActions } from "vuex"
         Update(userinfo) {
           var login_flag = this.$store.state.login_flag
           if(login_flag == true){
-
-            // 시큐리티 설정 때문에 권한을 넘겨받는 부분이 그냥 로그인 했을때와 새로고침했을때 변수명에서 조금 차이가 난다.
-            // 그래서 통일시키려면 작업이 많이 복잡하고 소요가 되므로 아래와 같이 처리하게 되었다.
+            // 일반적인 로그인때와 새로고침시 변수를 다르게 선언하였다.
             var login_auth = this.$store.state.Userinfo.User_auth[0]
             var refresh_auth = this.$store.state.Userinfo.User_auth[0]
 

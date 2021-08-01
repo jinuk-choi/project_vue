@@ -31,7 +31,6 @@ import { mapActions, mapState } from "vuex"
 import axios from 'axios'
 import Route from '@/router/index'
 
-
 export default {
 
     data() {

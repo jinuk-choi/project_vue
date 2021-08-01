@@ -90,7 +90,6 @@
 <script>
 import CommentList from '@/views/User/Comment/CommentList.vue'
 import CommentWrite from '@/views/User/Comment/CommentWrite.vue'
-
 export default {
   components: {
     CommentList,
@@ -111,6 +110,7 @@ export default {
     }
   },
   methods:{
+ 
     priceToString(price) {
             return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     },

@@ -126,11 +126,13 @@ export default new Vuex.Store({
     //게시판 상세보기
     board_detail:[],
   },
+
   getters: {
     get_orderDetailList: state => {
       return state.orderDetailList
     }
   },
+
   mutations: {
     SET_IMAGE_BY_RANK(state,data){
       state.imageByRank = data
@@ -183,7 +185,6 @@ export default new Vuex.Store({
       state.orderDetailList = data
     },
     SET_USERDATA(state, data) {
-      //Userinfo는 객체고, userlist는 배열인데 어차피 배열로 회원목록 뿌려줘야하므로 userlist 그대로 사용하도록 한다.
        state.userlist = data      
     },
     SET_USER(state, data) {
@@ -209,10 +210,8 @@ export default new Vuex.Store({
       state.Userinfo.User_token = null
       state.login_flag = false
       localStorage.removeItem("token")
-      // localStorage.removeItem("Authorization")
       console.log(state.Userinfo)
-      console.log("로그아웃됐니?, 토큰 값: "+localStorage.getItem("token"))
-      // console.log("로그아웃됐니?, 토큰 값: "+localStorage.getItem("Authorization"))
+      console.log("로그아웃?, 토큰 값: "+localStorage.getItem("token"))
     },
     INSERT_TOKEN(state) {
       state.Userinfo.User_token = localStorage.getItem("token")
@@ -268,6 +267,7 @@ export default new Vuex.Store({
               })
       })
     },
+
     CategoryUpdate({commit},payload) {
     if(confirm('분류명을 수정하시겠습니까?') == true){  
       return new Promise((resolve, reject) => {
@@ -286,6 +286,7 @@ export default new Vuex.Store({
         return;
       }
     },
+
     CategoryAdd({commit},payload) {
       var name;
       if(name = prompt('하위분류명을 입력해주세요.')){
@@ -308,6 +309,7 @@ export default new Vuex.Store({
         return;
       }
     },
+
     CategoryName({commit}, all) {
       return new Promise((resolve, reject) => {
           axios.get('http://localhost:9100/api/admin/categoryname')
@@ -321,6 +323,7 @@ export default new Vuex.Store({
               })
       })
     },
+
     CategorySelect({commit},payload) {
       console.log(payload)
       return new Promise((resolve, reject) => {
@@ -349,6 +352,7 @@ export default new Vuex.Store({
               })
       })
     },
+
     ProductCreate({commit},payload) {
       let formData = new FormData()
       formData.append('file', payload.fileinput)
@@ -417,7 +421,6 @@ export default new Vuex.Store({
               console.log('error')
               reject(Error)
               alert('권한이 없습니다.')
-              // alert('상품수정에러')
           })           
         })
       } else{
@@ -488,6 +491,7 @@ export default new Vuex.Store({
               })
       })
     },
+
     OrderDetailDelete({commit},payload) {
       console.log(payload)
       if(confirm('해당 주문을 삭제하시겠습니까?') == true){
@@ -524,6 +528,7 @@ export default new Vuex.Store({
         return;
       }
     },
+
     Ranking({commit}) {
       return new Promise((resolve, reject) => {
           axios.get('http://localhost:9100/api/admin/ranking')
@@ -537,6 +542,7 @@ export default new Vuex.Store({
               })
       })
     },
+
     SalesData({commit},payload){
       var dateinfo = {dateinfo:router.currentRoute.params}
       console.log(dateinfo)
@@ -560,6 +566,7 @@ export default new Vuex.Store({
               })
       })
     },
+
     SalesByTime({commit}, payload){
       console.log(payload)
       return new Promise((resolve, reject) =>{
@@ -574,6 +581,7 @@ export default new Vuex.Store({
           })
       })
     },
+
     Point({commit}){
       return new Promise((resolve,reject) => {
         axios.get('http://localhost:9100/api/admin/point')
@@ -587,7 +595,8 @@ export default new Vuex.Store({
         })
       })
     },
-    PointAdd({commit}, payload){
+
+    PointAdd(payload){
       console.log(payload)
       return new Promise((resolve,reject) => {
         axios.post('http://localhost:9100/api/admin/pointadd',payload)
@@ -606,6 +615,7 @@ export default new Vuex.Store({
         })
       })
     },
+
     UserList({commit, state}) {
       return new Promise((resolve, reject) => {
           axios.get('http://localhost:9100/api/admin/userlist')
@@ -628,6 +638,7 @@ export default new Vuex.Store({
               })
       })
     },
+
     UserUpdate({commit, state},payload) {
       console.log(payload)
       if(confirm('회원정보를 수정하시겠습니까?') == true){
@@ -650,6 +661,7 @@ export default new Vuex.Store({
          return;
       }
     },
+
     UserDelete({commit},payload) {
       console.log(payload)
       if(confirm('회원을 탈퇴처리 하시겠습니까?') == true){
@@ -669,6 +681,7 @@ export default new Vuex.Store({
         return;
       }
     },
+
     Login({ commit }, payload) {
       return new Promise((resolve, reject) => {
           axios.post('http://localhost:9100/api/auth/signin', payload)
@@ -697,6 +710,7 @@ export default new Vuex.Store({
               })
       })
     },
+
     UnpackToken({commit}) {
         return new Promise((resolve, reject) => {
           axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("token")}`
@@ -711,6 +725,7 @@ export default new Vuex.Store({
               })
       })
     },
+
     LogOut({commit}){
       return new Promise((resolve, reject) => {
         //로그아웃시 헤더에 디폴트 값으로 포함되는 권한을 null로 처리함.
@@ -718,6 +733,7 @@ export default new Vuex.Store({
         commit('LogOut')
       })
     },
+
     Join({commit},payload){
         console.log(payload)
         return new Promise((resolve, reject) => {
@@ -738,6 +754,7 @@ export default new Vuex.Store({
               })
       })
     },
+
     duplicate({commit},payload){
       console.log(payload)
       return new Promise((resolve, reject) =>{
@@ -756,7 +773,8 @@ export default new Vuex.Store({
         })
       })
     },
-    // -------------- 아래부터 사용자 화면 ----------------
+
+    // -------------- 사용자 화면 ----------------
     Product({commit},payload) {
       var obj = {id: router.currentRoute.params.id};
       payload = obj;
@@ -773,6 +791,7 @@ export default new Vuex.Store({
               })
       })
     },
+
     imageByRank({commit}){
       console.log('상품랭킹 순 이미지')
       return new Promise((resolve, reject) => {
@@ -787,6 +806,7 @@ export default new Vuex.Store({
         })
       })      
     },
+
     imageTop({commit}){
       return new Promise((resolve, reject) => {
         axios.get('http://localhost:9100/api/imageTop')
@@ -800,6 +820,7 @@ export default new Vuex.Store({
         })
       })      
     },
+
     imageLongTop({commit}){
       return new Promise((resolve, reject) => {
         axios.get('http://localhost:9100/api/imageLongTop')
@@ -813,6 +834,7 @@ export default new Vuex.Store({
         })
       })      
     },
+
     imageShortTop({commit}){
       return new Promise((resolve, reject) => {
         axios.get('http://localhost:9100/api/imageShortTop')
@@ -826,6 +848,7 @@ export default new Vuex.Store({
         })
       })      
     },
+
     imagePants({commit}){
       return new Promise((resolve, reject) => {
         axios.get('http://localhost:9100/api/imagePants')
@@ -839,6 +862,7 @@ export default new Vuex.Store({
         })
       })      
     },
+
     imageLongPants({commit}){
       return new Promise((resolve, reject) => {
         axios.get('http://localhost:9100/api/imageLongPants')
@@ -852,6 +876,7 @@ export default new Vuex.Store({
         })
       })      
     },
+
     imageShortPants({commit}){
       return new Promise((resolve, reject) => {
         axios.get('http://localhost:9100/api/imageShortPants')
@@ -865,6 +890,7 @@ export default new Vuex.Store({
         })
       })      
     },
+
     boardDetail({commit},payload) {
       return new Promise((resolve, reject) => {
         axios.get('http://localhost:9100/api/boardDetail', {
@@ -882,10 +908,9 @@ export default new Vuex.Store({
             })
       })
      },
-
-
-
   },
+
   modules: {
   }
+  
 })

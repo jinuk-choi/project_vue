@@ -61,107 +61,110 @@
 import { mapActions, mapState } from "vuex"
 import axios from 'axios'
 export default {
-    props: {
-      id: Number 
-    },
+  props: {
+    id: Number
+  },
 
-    data() {
-      return {
-        pagination: {},
-        page: 1,
-        List: [],
-        cContent: null,
-        bTn: false,
-        cRating: null
-      }
-    
-    },
-    created() {
+  data() {
+    return {
+      pagination: {},
+      List: [],
+      page: 1,
+      cContent: null,
+      bTn: false,
+      cRating: null,
+    }
+  
+  },
+
+  created() {
     this.commentList()
-    },
+  },
 
-    computed: {
-       ...mapState(["Userinfo"])
-    },
-    methods: {
-        CommentEdit(payload) {
-          payload.id = this.id
-          return new Promise((resolve, reject) => {
-            axios.post('http://localhost:9100/api/commentEdit/', payload, {
-              params: {
-                id: this.id
-              } 
-            })
-               .then(Response => {
-                  console.log(Response.data)
-                  this.pagination = Response.data
-                  this.List = this.pagination.list
-                  
-              })
-                    .catch(Error => {
-                        console.log('error')
-                        reject(Error)
-                    })
-          })
-        },
-
-
-      CommentDelete(cId) {
-        return new Promise((resolve, reject) => {
-          axios.delete('http://localhost:9100/api/commentDelete/'+cId, {
-             params: {
-                id: this.id
-            } 
-          })
-              .then(Response => {
-                  console.log(Response.data)
-                  this.pagination = Response.data
-                  this.List = this.pagination.list
-                  
-              })
-              .catch(Error => {
-                  console.log('error')
-                  reject(Error)
-              })
-        })
-      },
-      next (page) {
-        axios.get('http://localhost:9100/api/commentList/'+page, {
+  computed: {
+      ...mapState(["Userinfo"]),
+  },
+  methods: {
+    CommentEdit(payload) {
+      payload.id = this.id
+      return new Promise((resolve, reject) => {
+        axios.post('http://localhost:9100/api/commentEdit/', payload, {
           params: {
-                id: this.id
-            } 
+            id: this.id
+          } 
         })
-          .then(Response => {
+            .then(Response => {
               console.log(Response.data)
               this.pagination = Response.data
               this.List = this.pagination.list
-              console.log(this.List)
+              
           })
-          .catch(Error => {
-              console.log('error')
-              reject(Error)
-          })
-      },
-      commentList() {
-        return new Promise((resolve, reject) => {
-          axios.get('http://localhost:9100/api/commentList', {
+                .catch(Error => {
+                    console.log('error')
+                    reject(Error)
+                })
+      })
+    },
+
+    CommentDelete(cId) {
+      return new Promise((resolve, reject) => {
+        axios.delete('http://localhost:9100/api/commentDelete/'+cId, {
             params: {
-                id:this.id
-            }    
-          })
-              .then(Response => {
-                  console.log(Response.data)
-                  this.pagination = Response.data
-                  this.List = this.pagination.list
-             
-              })
-              .catch(Error => {
-                  console.log('error')
-                  reject(Error)
-              })
+              id: this.id
+          } 
         })
-      }
+            .then(Response => {
+                console.log(Response.data)
+                this.pagination = Response.data
+                this.List = this.pagination.list
+                
+            })
+            .catch(Error => {
+                console.log('error')
+                reject(Error)
+            })
+      })
+    },
+
+    next (page) {
+      axios.get('http://localhost:9100/api/commentList/'+page, {
+        params: {
+              id: this.id
+          } 
+      })
+        .then(Response => {
+            console.log(Response.data)
+            this.pagination = Response.data
+            this.List = this.pagination.list
+            console.log(this.List)
+        })
+        .catch(Error => {
+            console.log('error')
+            reject(Error)
+        })
+    },
+
+    commentList() {
+      return new Promise((resolve, reject) => {
+      axios.get('http://localhost:9100/api/commentList', {
+        params: {
+            id:this.id
+        }    
+      })
+        .then(Response => {
+            console.log(Response.data)
+            this.pagination = Response.data
+            this.List = this.pagination.list        
+        
+        })
+        .catch(Error => {
+            console.log('error')
+            reject(Error)
+        })
+      })
     }
+
+  }
 
       
 }

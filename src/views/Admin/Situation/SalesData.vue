@@ -61,6 +61,19 @@
   </div>
 </template>
 
+<script>
+export default {
+    created(){
+      this.$store.dispatch('SalesData')
+    },
+    methods:{
+    priceToString(price) {
+      return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    },
+  }
+}
+</script>
+
 <style scoped>
 .detail{
     width:650px;
@@ -78,16 +91,3 @@
     font-weight:600;
 }
 </style>
-
-<script>
-export default {
-    created(){
-      this.$store.dispatch('SalesData')
-    },
-    methods:{
-    priceToString(price) {
-      return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    },
-  }
-}
-</script>

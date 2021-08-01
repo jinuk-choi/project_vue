@@ -122,21 +122,20 @@
           <span>사업자 등록번호: 000-00-00000</span>
         </p>
         <p class="size18" style="margin-bottom:0px; margin-top:10px; margin-left:300px; font-weight:560;">
-          <span>주소: 대구광역시 중구</span>
+          <span>주소: 대구광역시 북구</span>
           <br/>
           <span>E-Mail: abc@abc.com</span>
         </p>
         <p class="size18" style="margin-bottom:0px; margin-top:10px; margin-left:500px; font-weight:560;">
-          <span>전화번호: 0000-0000</span>
+          <span>전화번호: 000-000-0000</span>
           <br/>
-          <span>FAX: 0000-000-0000</span> 
+          <span>FAX: 000-000-0000</span> 
         </p>
       </v-footer>
   </v-app>
 </template>
 
 <script>
-// @ is an alias to /src
 import { mapActions,mapState } from "vuex"
 
 export default {

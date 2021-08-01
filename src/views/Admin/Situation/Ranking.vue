@@ -57,23 +57,6 @@
   </div>
 </template>
 
-<style scoped>
-.i_size{  
-  border:solid 1px; 
-  margin-bottom:5px; 
-  margin-right:5px; 
-  margin-left:10px;
-  width:150px;
-}
-.v_size{
-  margin-left:15px; 
-  bottom:3px;
-  width:50px;
-  height:20px;
-  color:white;
-}
-</style>
-
 <script>
 import { mapState, mapActions } from "vuex"
   export default {
@@ -124,7 +107,6 @@ import { mapState, mapActions } from "vuex"
          this.time2 = ''
        },
        check(){
-         //만약 체크박스가 체크되어 있으면 해제하기
          if(this.toggle == 'yes'){
            this.toggle = 'no'
          }
@@ -132,3 +114,19 @@ import { mapState, mapActions } from "vuex"
     },
   }
 </script>
+<style scoped>
+.i_size{  
+  border:solid 1px; 
+  margin-bottom:5px; 
+  margin-right:5px; 
+  margin-left:10px;
+  width:150px;
+}
+.v_size{
+  margin-left:15px; 
+  bottom:3px;
+  width:50px;
+  height:20px;
+  color:white;
+}
+</style>

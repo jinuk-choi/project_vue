@@ -62,6 +62,22 @@
   </div>
 </template>
 
+<script>
+  export default {
+    data() {
+      return{
+        day:'',
+        day1:'',
+        day2:'',
+        month1:'',
+        month2:'',
+        year1:'',
+        year2:'',
+      }
+    },
+  }
+</script>
+
 <style scoped>
 .row{
   margin-left: 25px;
@@ -82,19 +98,3 @@
   color:white;
 }
 </style>
-
-<script>
-  export default {
-    data() {
-      return{
-        day:'',
-        day1:'',
-        day2:'',
-        month1:'',
-        month2:'',
-        year1:'',
-        year2:'',
-      }
-    },
-  }
-</script>

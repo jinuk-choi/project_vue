@@ -45,39 +45,7 @@
     </v-row>
   </div>
 </template>
-<style scoped>
-@media (min-width: 1200px) {
-  /* .container 클래스는 위의 코드상에는 없지만, 
-    vuetify에서 v-container에 자동으로 적용시키는 클래스이다.
-    이 부분을 F12개발자 도구의 style 부분에서 찾아서 수정한 것이다. */
-  .container {
-    max-width:100%;
-  }
-}
-th{
-  width:200px;
-  height:100px;
-  border: 0.5px solid;
-  border-color: rgb(200, 200, 200);
-}
-td{
-  border: 0.5px solid;
-  height:100px;
-  border-color: rgb(200, 200, 200);
-}
 
-.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
-    width: 100%;
-    padding-right: 0px;
-    padding-left: 0px;
-    margin-right: auto;
-    margin-left: auto;
-}
-img{
-  width:90%; height:100px;
-}
-
-</style>
 <script>
 import { mapActions } from "vuex"
   export default {
@@ -108,3 +76,31 @@ import { mapActions } from "vuex"
     }
   }
   </script>
+  <style scoped>
+@media (min-width: 1200px) {
+  .container {
+    max-width:100%;
+  }
+}
+th{
+  width:200px;
+  height:100px;
+  border: 0.5px solid;
+  border-color: rgb(200, 200, 200);
+}
+td{
+  border: 0.5px solid;
+  height:100px;
+  border-color: rgb(200, 200, 200);
+}
+.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl {
+    width: 100%;
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-right: auto;
+    margin-left: auto;
+}
+img{
+  width:90%; height:100px;
+}
+</style>
