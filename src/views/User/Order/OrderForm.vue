@@ -81,7 +81,6 @@
         <v-col sm="3" ></v-col>
         <v-col sm="6" >
             <v-btn color="primary" router :to="{name: 'OrderList'}">주문하기</v-btn>
-    
             <v-btn router :to="{name: 'Main'}">취소하기</v-btn>
         </v-col>
         <v-col sm="3" ></v-col>

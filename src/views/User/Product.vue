@@ -52,8 +52,8 @@
           <v-row v-if="this.$store.state.product[0].quantity ==0">
           </v-row>
           <v-row v-else align="center" justify="space-around">
-            <v-btn max-width="5" color="primary"  class="mt-6" router :to="{name:'OrderForm', params:{amount: amount}}">구매하기</v-btn>                                                                       
-            <v-btn max-width="5" class="mt-6">장바구니</v-btn>
+            <v-btn max-width="5" color="primary"  class="mt-6"  router :to="{name:'OrderForm', params:{amount: amount}}">구매하기</v-btn>                                                                       
+            <v-btn max-width="5" class="mt-6" router :to="{name:'OrderForm', params:{amount: amount}}">장바구니</v-btn>
           </v-row>
         </v-card>
       </v-col>

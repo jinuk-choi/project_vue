@@ -31,9 +31,11 @@
               주문내역
             </span>&nbsp;
           </router-link>
-          <span class="text-decoration-none">
-            장바구니
-          </span>
+          <router-link to='/OrderCart'  style="color:#263238; text-decoration:none"> 
+            <span class="text-decoration-none">
+              장바구니
+            </span>
+          </router-link>
         </span>
       </v-layout>
       <v-layout>
