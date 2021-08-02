@@ -26,10 +26,12 @@
       <v-layout>
         <span style="padding-left:30px;" v-show="this.$store.state.login_flag == 1">
           {{Userinfo.User_Name}}님 환영합니다. &nbsp;
-          <span class="text-decoration-underline">
-            주문내역
-          </span>&nbsp;
-          <span class="text-decoration-underline">
+          <router-link to='/OrderList'  style="color:#263238; text-decoration:none"> 
+            <span>
+              주문내역
+            </span>&nbsp;
+          </router-link>
+          <span class="text-decoration-none">
             장바구니
           </span>
         </span>

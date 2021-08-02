@@ -28,6 +28,7 @@ import BoardDetail from '../views/User/Board/BoardDetail.vue'
 import BoardWrite from '../views/User/Board/BoardWrite.vue'
 import boardEdit from '../views/User/Board/BoardEdit.vue'
 import OrderForm from '../views/User/Order/OrderForm.vue'
+import OrderList from '../views/User/Order/OrderList.vue'
 import Main from '../views/User/Main.vue'
 import store from '../store'
 
@@ -113,7 +114,13 @@ const routes = [
         path:'/OrderForm'
         ,name:'OrderForm'
         ,component:OrderForm
+        ,props: true
         
+      },
+      {
+        path:'/OrderList'
+        ,name:'OrderList'
+        ,component:OrderList
       },
     ]
   },

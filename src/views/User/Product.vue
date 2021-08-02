@@ -52,9 +52,7 @@
           <v-row v-if="this.$store.state.product[0].quantity ==0">
           </v-row>
           <v-row v-else align="center" justify="space-around">
-            <v-btn color="primary" max-width="5" class="mt-6" router :to="{name:'OrderForm', 
-                                                                          params:{id: this.id,
-                                                                          amount: this.amount}}">구매하기</v-btn>
+            <v-btn max-width="5" color="primary"  class="mt-6" router :to="{name:'OrderForm', params:{amount: amount}}">구매하기</v-btn>                                                                       
             <v-btn max-width="5" class="mt-6">장바구니</v-btn>
           </v-row>
         </v-card>
@@ -65,11 +63,11 @@
     <v-divider></v-divider>
     <v-row style="margin-top:50px; margin-bottom:50px;">
       <h2 style="margin-right:50%; margin-bottom:50px;">사용후기</h2>
-        <CommentWrite :id="this.id"></CommentWrite>
+        <CommentWrite :id="id"></CommentWrite>
     </v-row>
     <v-divider></v-divider>
     <v-row style="margin-top:50px; margin-bottom:50px;">
-      <CommentList :id="this.id"></CommentList>
+      <CommentList :id="id"></CommentList>
     </v-row>
 
   <!-- 유의 사항 -->  
@@ -95,13 +93,12 @@ export default {
     CommentList,
     CommentWrite
   },
-  
   created(){
       this.$store.dispatch('Product')
-    },
+  },
   data () {
     return {     
-      id: this.$route.params.id, 
+      id: Number(this.$route.params.id), 
       name: this.$store.state.product[0].name,
       price: this.$store.state.product[0].price,
       quantity: this.$store.state.product[0].quantity,

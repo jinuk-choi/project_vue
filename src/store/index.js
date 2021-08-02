@@ -97,7 +97,7 @@ export default new Vuex.Store({
       {text:'판매가격', value:'total_price'},
       {text:'관리', value: ''}
     ],
-    orderlist:[],
+    orderlist:[null],
     orderDetailList:{},
 
     //point
@@ -121,7 +121,7 @@ export default new Vuex.Store({
       {text:'주문합계', value:'total_price'},
       {text:'상세보기', value:''},
     ],
-    salesdata:[],
+    salesdata:[null],
 
     //게시판 상세보기
     board_detail:[],

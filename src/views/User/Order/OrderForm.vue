@@ -20,12 +20,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><img :src="image($store.state.product[id].image)" style="margin-top:2%; width:100px;" ></td>
-                    <td>{{amount}}</td>
-                    <td>{{priceToString($store.state.product[id].price)}}원</td>
-                    <td></td>
-                </tr>
+              <tr>
+                  <td><img :src="image($store.state.product[0].image)" style="margin-top:2%; width:100px;" ></td>
+                  <td>{{amount}}개</td>
+                  <td>{{priceToString($store.state.product[0].price)}}원</td>
+                  <td>{{total(amount)}}원</td>
+              </tr>
             </tbody>
           </template>
         </v-simple-table>
@@ -38,7 +38,7 @@
       <v-col sm="3" ></v-col>
       <v-col sm="6" >
         <h4 style="text-align:left; margin-bottom:20px;">
-            주문하시는 분
+            주문하시는 분 
         </h4>
         <v-card
         class="pa-2"
@@ -80,9 +80,9 @@
     <v-row>
         <v-col sm="3" ></v-col>
         <v-col sm="6" >
-            <v-btn color="primary" @click="CommentWrite({cContent})">주문하기</v-btn>
+            <v-btn color="primary" router :to="{name: 'OrderList'}">주문하기</v-btn>
     
-            <v-btn @click="CommentWrite({cContent})">취소하기</v-btn>
+            <v-btn router :to="{name: 'Main'}">취소하기</v-btn>
         </v-col>
         <v-col sm="3" ></v-col>
     </v-row>
@@ -90,18 +90,13 @@
 </template>
  
 <script>
-import { mapState, mapActions } from "vuex"
-import { mapGetters } from 'vuex'
 export default {
   name: 'Params',
     props: {
-      id: {
-          type: Number,
-          default : 0
-      },
       amount: {
           type: Number,
           default : 0
+          
       }
     },
 
@@ -111,11 +106,8 @@ export default {
           address: this.$store.state.Userinfo.User_address,
           phone: this.$store.state.Userinfo.User_phone,
           email: this.$store.state.Userinfo.User_email,
+          
       }
-  },
-
-  computed: {
-      ...mapState(["product"]),
   },
 
   methods:{
