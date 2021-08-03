@@ -29,9 +29,6 @@
                 <v-card-actions>
                   <p class="size20" style="text-align:left; margin-top:1px; margin-bottom:1px;">{{item.name}}</p>
                  <v-spacer></v-spacer>
-                  <v-btn icon>
-                    <v-icon>mdi-heart</v-icon>
-                  </v-btn>
                 </v-card-actions>
             </v-card>
           </span>

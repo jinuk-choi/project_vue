@@ -21,9 +21,10 @@
              <v-btn width="300px" height="50px" @click="error()">로그인</v-btn>
         </span>
         <span v-else>
-              <v-btn width="300px" height="50px" @click="Login({username, password})">로그인</v-btn>
+              <v-btn width="300px" height="20px" @click="Login({username, password})">로그인</v-btn>
         </span>
       </form>
+        <img :src="image('kakao_login')" style="margin-top:1%;">
   </div>
 </template>
 
@@ -37,9 +38,18 @@ import {mapActions} from "vuex"
       }
     },
     methods:{
+
       ...mapActions(["Login"]),
       error(){
         alert('ID 또는 PASSWORD를 확인해 주세요.')
+      },
+
+      image(image){
+        //경로를 조합해줄 메서드.
+        if(image == null){
+          return require('@/images/null.jpg');
+        }
+        return require('@/images/'+ image +'.jpg');
       }
     },
   }
