@@ -684,7 +684,7 @@ export default new Vuex.Store({
 
     Login({ commit }, payload) {
       return new Promise((resolve, reject) => {
-          axios.post('http://localhost:9100/api/auth/signin', payload)
+          axios.post('http://yosinsa.com/api/auth/signin', payload)
               .then(Response => {
                   console.log(Response.data)
                   if (Response.data.username != null) {
@@ -714,7 +714,7 @@ export default new Vuex.Store({
     UnpackToken({commit}) {
         return new Promise((resolve, reject) => {
           axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("token")}`
-          axios.get('http://localhost:9100/api/auth/unpackToken')
+          axios.get('http://yosinsa.com/api/auth/unpackToken')
               .then(Response => {
                 console.log(Response.data)
                 commit('SET_USER_REFRESH',Response.data)
