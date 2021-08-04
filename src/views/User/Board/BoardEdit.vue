@@ -34,9 +34,10 @@ export default {
     },
     methods: {
         boardEdit(payload) {
+          var dns = this.$store.state.dns
           payload.aIdx = this.board_detail.aIdx
           return new Promise((resolve, reject) => {
-            axios.post('http://localhost:9100/api/boardEdit', payload)
+            axios.post('http://'+ dns +'/api/boardEdit', payload)
                 .then(Response => {
                     console.log(Response.data)
                      Route.push("/boardlist")

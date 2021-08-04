@@ -39,11 +39,12 @@ export default {
     },
     methods: {
         CommentWrite(payload) {
+          var dns = this.$store.state.dns
           payload.uId = this.Userinfo.User_Id
           payload.id = this.id
           payload.cRating = this.cRating
           return new Promise((resolve, reject) => {
-            axios.post('http://localhost:9100/api/commentWrite/', payload, {
+            axios.post('http://'+ dns +'/api/commentWrite/', payload, {
               params: {
                 id: this.id
               } 

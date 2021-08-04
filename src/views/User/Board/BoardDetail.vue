@@ -44,8 +44,9 @@ export default {
     methods: {
 
       BoardDelete(aIdx) {
+        var dns = this.$store.state.dns
         return new Promise((resolve, reject) => {
-          axios.delete('http://localhost:9100/api/boardDelete/'+aIdx)
+          axios.delete('http://'+ dns +'/api/boardDelete/'+aIdx)
               .then(Response => {
                   console.log(Response.data)
                   Route.push("/boardlist")

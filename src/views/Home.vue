@@ -19,7 +19,7 @@
       <v-layout>
         <v-spacer/>
         <router-link to='/Main' style="color:#263238; text-decoration:none">  
-          <v-toolbar-title style="font-size:30px; font-weight:750;">ShoppingMall</v-toolbar-title>     
+          <v-toolbar-title style="font-size:30px; font-weight:750;">YOSINSA</v-toolbar-title>     
         </router-link>
         <v-spacer/>
       </v-layout>

@@ -57,9 +57,10 @@ export default {
     },
     methods: {
         boardWrite(payload) {
+          var dns = this.$store.state.dns
           payload.uId = this.Userinfo.User_Id
           return new Promise((resolve, reject) => {
-            axios.post('http://localhost:9100/api/boardWrite', payload)
+            axios.post('http://'+ dns +'/api/boardWrite', payload)
                 .then(Response => {
                     console.log(Response.data)
                      Route.push("/boardlist")

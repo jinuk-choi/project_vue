@@ -86,9 +86,10 @@ export default {
   },
   methods: {
     CommentEdit(payload) {
+      var dns = this.$store.state.dns
       payload.id = this.id
       return new Promise((resolve, reject) => {
-        axios.post('http://localhost:9100/api/commentEdit/', payload, {
+        axios.post('http://'+ dns +'/api/commentEdit/', payload, {
           params: {
             id: this.id
           } 
@@ -108,7 +109,8 @@ export default {
 
     CommentDelete(cId) {
       return new Promise((resolve, reject) => {
-        axios.delete('http://localhost:9100/api/commentDelete/'+cId, {
+        var dns = this.$store.state.dns
+        axios.delete('http://'+ dns +'/api/commentDelete/'+cId, {
             params: {
               id: this.id
           } 
@@ -127,7 +129,8 @@ export default {
     },
 
     next (page) {
-      axios.get('http://localhost:9100/api/commentList/'+page, {
+      var dns = this.$store.state.dns
+      axios.get('http://'+ dns +'/api/commentList/'+page, {
         params: {
               id: this.id
           } 
@@ -145,8 +148,9 @@ export default {
     },
 
     commentList() {
+      var dns = this.$store.state.dns
       return new Promise((resolve, reject) => {
-      axios.get('http://localhost:9100/api/commentList', {
+      axios.get('http://'+ dns +'/api/commentList', {
         params: {
             id:this.id
         }    

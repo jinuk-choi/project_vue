@@ -130,7 +130,8 @@ export default {
     ...mapActions(['boardDetail']),
 
     BoardSearch (payload) {
-      axios.get('http://localhost:9100/api/board/'+payload.page+ '/' +payload.type+ '/' +payload.keyword )
+      var dns = this.$store.state.dns
+      axios.get('http://'+ dns +'/api/board/'+payload.page+ '/' +payload.type+ '/' +payload.keyword )
         .then(Response => {
             console.log(Response.data)
             this.pagination = Response.data
@@ -143,7 +144,8 @@ export default {
     },
 
     next (page) {
-      axios.get('http://localhost:9100/api/board/'+page )
+      var dns = this.$store.state.dns
+      axios.get('http://'+ dns +'/api/board/'+page )
         .then(Response => {
             console.log(Response.data)
             this.pagination = Response.data
@@ -156,8 +158,9 @@ export default {
     },
 
     boardList() {
+      var dns = this.$store.state.dns
       return new Promise((resolve, reject) => {
-          axios.get('http://localhost:9100/api/board')
+          axios.get('http://'+ dns +'/api/board')
               .then(Response => {
                   console.log(Response.data)
                   this.pagination = Response.data
