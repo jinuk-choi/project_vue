@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../views/Login/Login.vue'
+import klogin from '../views/Login/klogin.vue'
 import Join from '../views/Login/Join.vue'
 import Home from '../views/Home.vue'
 import Admin from '../views/Admin.vue'
@@ -136,6 +137,11 @@ const routes = [
     component: Login
   },
   {
+    path:'/klogin',
+    name:'klogin',
+    component: klogin
+  },
+  {
     path:'/Join',
     name:'Join',
     component: Join
@@ -145,6 +151,7 @@ const routes = [
     name: 'Admin',
     component: Admin,
     beforeEnter: requireAuth(),
+    
 
     children: [
       { 

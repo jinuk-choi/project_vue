@@ -24,7 +24,9 @@
               <v-btn width="300px" height="20px" @click="Login({username, password})">로그인</v-btn>
         </span>
       </form>
-        <img :src="image('kakao_login')" style="margin-top:1%;">
+        <a href="https://kauth.kakao.com/oauth/authorize?client_id=60fe433722c3b3c6083b42fe8cd72063&redirect_uri=http://localhost:8080/klogin&response_type=code">
+          <img :src="image('kakao_login')" style="margin-top:1%;">
+        </a>
   </div>
 </template>
 
