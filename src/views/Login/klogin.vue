@@ -42,7 +42,7 @@
               <div class="d-flex justify-content-between align-items-center">
                 <div class="text-right">
                  <v-btn type="submit" width="300px" height="50px" 
-                  @click="Join({username, name, phone, password})">등록하기
+                  @click="Kjoin({username, name, phone, password})">등록하기
                  </v-btn>
                 </div>
               </div>
@@ -74,7 +74,6 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["Join"]),
     ...mapActions(["Login"]),
 
     create() {
@@ -92,10 +91,12 @@ export default {
                     this.password = Response.data.nickname
                     this.jwt = this.codes
                     if (this.password == undefined) {
+                      alert("올바르지 못한 접근입니다.")
+                      Route.push({ name: 'Main' })
+                      
                     } else {
                       this.Login({username:this.username, password:this.password, jwt:this.jwt})
                     }
-                  
                 })
                 .catch(Error => {
                     console.log('error')
@@ -103,34 +104,24 @@ export default {
                 })
         })
     },
-
-
-
-    // onSubmit(event) {
-    //   event.preventDefault();
-    //   axios.post('http://'+ dns +'/klogin?authorize_code=' + this.form)
-    //     .then(Response => {
-    //         console.log(Response.data)                 
-    //     })
-    // }
-    //   login() {
-    //   var dns = this.$store.state.dns
-    //     return new Promise((resolve, reject) => {
-    //         axios.post('http://'+ dns +'/klogin?authorize_code=' + this.form)
-    //             .then(Response => {
-    //                 console.log(Response.data)
-    //             })
-    //             .catch(Error => {
-    //                 console.log('error')
-    //                 reject(Error)
-    //             })
-    //     })
-     
-    // },
+    Kjoin(payload){
+      var dns = this.$store.state.dns
+      console.log(payload)
+      return new Promise((resolve, reject) => {
+        axios.post('http://'+ dns +'/api/auth/signup',payload)
+          .then(Response => {
+            console.log(Response.data)
+            this.Login({username:this.username, password:this.password, jwt:this.jwt})
+            .catch(Error => {
+                    console.log('error')
+                    reject(Error)
+                })
+          })
+      })
+    },
 
 
 
   }
-
 }
 </script>
