@@ -25,12 +25,15 @@
                 </tr>
             </thead>
             <tbody>
-              <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+              <tr v-for="item in List"
+              :key="item.id"
+              class="mr-10 mb-10"
+              >
+                <td><v-checkbox v-model="selected"></v-checkbox></td>
+                <td><v-img :src="image(item.image)" style="margin-top:2%; width:100px;" ></v-img></td>
+                <td>{{item.amount}}개</td>
+                <td>{{priceToString(item.price)}}원</td>
+                <td>{{total(item.amount)}}원</td>
               </tr>
             </tbody>
           </template>
@@ -51,6 +54,7 @@
         <v-col sm="6" >
             <v-btn color="primary" router :to="{name: 'OrderList'}">주문하기</v-btn>
             <v-btn router :to="{name: 'Main'}">쇼핑 계속하기</v-btn>
+            <v-btn color="error" @click="CartOut()">장바구니 비우기</v-btn>
         </v-col>
         <v-col sm="3" ></v-col>
     </v-row>
@@ -58,16 +62,18 @@
 </template>
  
 <script>
+import { mapActions, mapState } from "vuex"
 export default {
-
-
   data() {
       return {
-          selected: [''],
+        selected: [''],
+        List: this.$store.state.cartList,
       }
   },
 
   methods:{
+    ...mapActions(["CartOut"]),
+
     image(image){
     //경로를 조합해줄 메서드.
     if(image == null){
@@ -79,7 +85,7 @@ export default {
             return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     },
     total(amount){
-        return (amount * this.$store.state.product[0].price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        return (amount * this.$store.state.cartList[0].price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     }
 
   },

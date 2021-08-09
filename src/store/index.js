@@ -26,6 +26,7 @@ export default new Vuex.Store({
     imagePants:[], // Pants image
     imageLongPants:[], // LongPants image
     imageShortPants:[], // ShortPants image
+    cartList:[],
     
 
      //관리자단 
@@ -178,6 +179,14 @@ export default new Vuex.Store({
     SET_PRODUCT(state, data){
         state.product = data
         console.log(state.product)
+    },
+    SET_CARTLIST(state,data){
+      state.cartList.push(data);
+      console.log(state.cartList)
+    },
+    CARTOUT(state) {
+      state.cartList = []
+      console.log(state.cartList)
     },
     UPDATE_PRODUCT(state, data){
         state.product = data
@@ -820,6 +829,19 @@ export default new Vuex.Store({
                   console.log('error')
                   reject(Error)
               })
+      })
+    },
+
+    OrderCart({commit},payload) {
+      return new Promise((resolve, reject) => {
+        commit('SET_CARTLIST', payload)
+        router.push("/OrderCart")
+      })
+    },
+
+    CartOut({commit}) {
+      return new Promise((resolve, reject) => {
+        commit('CARTOUT')
       })
     },
 

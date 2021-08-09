@@ -37,8 +37,8 @@
 
 <script>
 export default {
-   created(){
-    this.$store.dispatch('imageLongPants')
+  created(){
+  this.$store.dispatch('imageLongPants')
   },
   methods:{
     image(image){

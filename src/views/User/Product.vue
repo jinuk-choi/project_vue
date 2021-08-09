@@ -53,7 +53,7 @@
           </v-row>
           <v-row v-else align="center" justify="space-around">
             <v-btn max-width="5" color="primary"  class="mt-6"  router :to="{name:'OrderForm', params:{amount: amount}}">구매하기</v-btn>                                                                       
-            <v-btn max-width="5" class="mt-6" router :to="{name:'OrderForm', params:{amount: amount}}">장바구니</v-btn>
+            <v-btn max-width="5" class="mt-6" @click="OrderCart({id,amount,price:$store.state.product[0].price,image:$store.state.product[0].image})">장바구니</v-btn>
           </v-row>
         </v-card>
       </v-col>
@@ -88,48 +88,50 @@
 <script>
 import CommentList from '@/views/User/Comment/CommentList.vue'
 import CommentWrite from '@/views/User/Comment/CommentWrite.vue'
-export default {
-  components: {
-    CommentList,
-    CommentWrite
-  },
-  created(){
-      this.$store.dispatch('Product')
-  },
-  data () {
-    return {     
-      id: Number(this.$route.params.id), 
-      name: this.$store.state.product[0].name,
-      price: this.$store.state.product[0].price,
-      quantity: this.$store.state.product[0].quantity,
-      amount:1,
-      num:1,
-    }
-  },
-  methods:{
- 
-    priceToString(price) {
-            return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+import {mapActions} from "vuex"
+  export default {
+    components: {
+      CommentList,
+      CommentWrite
     },
-    change(num){
-          this.amount += num;
-          if(this.amount < 1) {
-              alert("더 이상 줄일 수 없습니다.");
-              this.amount = 1;
-          }   
+    created(){
+        this.$store.dispatch('Product')
     },
-    image(image){
-      //경로를 조합해줄 메서드.
-      if(image == null){
-        return require('@/images/null.jpg');
+    data () {
+      return {     
+        id: Number(this.$route.params.id), 
+        name: this.$store.state.product[0].name,
+        price: this.$store.state.product[0].price,
+        quantity: this.$store.state.product[0].quantity,
+        amount:1,
+        num:1,
       }
-      return require('@/images/'+ image +'.jpg');
     },
-    total(amount){
-        return (amount * this.$store.state.product[0].price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    }
-  },
-}
+    methods:{
+      ...mapActions(["OrderCart"]),
+
+      priceToString(price) {
+              return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      },
+      change(num){
+            this.amount += num;
+            if(this.amount < 1) {
+                alert("더 이상 줄일 수 없습니다.");
+                this.amount = 1;
+            }   
+      },
+      image(image){
+        //경로를 조합해줄 메서드.
+        if(image == null){
+          return require('@/images/null.jpg');
+        }
+        return require('@/images/'+ image +'.jpg');
+      },
+      total(amount){
+          return (amount * this.$store.state.product[0].price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      }
+    },
+  }
 </script>
 
 <style scoped>
