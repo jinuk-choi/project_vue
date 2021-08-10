@@ -25,9 +25,9 @@
               class="mr-10 mb-10"
               >
                 <td><v-img :src="image(item.image)" style="margin-top:2%; width:100px;" ></v-img></td>
-                <td>{{item.amount}}개</td>
+                <td>{{item.count}}개</td>
                 <td>{{priceToString(item.price)}}원</td>
-                <td>{{total({amount:item.amount, price:item.price})}}원</td>
+                <td>{{total({amount:item.count, price:item.price})}}원</td>
               </tr>
             </tbody>
           </template>

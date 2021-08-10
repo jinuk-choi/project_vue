@@ -190,12 +190,7 @@ export default new Vuex.Store({
       console.log(state.cartList)
     },
     SET_CARTORDER(state,data){
-      for(var i = 0; i<data.length; i++){
-        state.orderCartList.p_id = data[i].id
-        state.orderCartList.count = data[i].amount
-        state.orderCartList.image = data[i].image
-        state.orderCartList.price = data[i].price
-      }
+      state.orderCartList = data
       console.log(state.orderCartList)
     },
     CARTOUT(state) {

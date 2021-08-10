@@ -28,7 +28,7 @@
                 <td>
                   <v-checkbox
                     v-model="selected"
-                    :value="({id:item.id, amount: item.amount, price: item.price, image:item.image})"
+                    :value="({p_id:item.id, count: item.amount, price: item.price, image:item.image})"
                   ></v-checkbox>
                 </td>
                 <td><v-img :src="image(item.image)" style="margin-top:2%; width:100px;" ></v-img></td>
