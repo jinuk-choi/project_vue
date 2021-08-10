@@ -25,9 +25,6 @@
              {{priceToString(row.item.total_price)}}원
            </td>
            <td>
-             {{row.item.state}}
-           </td>
-           <td>
               <v-btn dark small color="grey" router :to="{name: 'OrderDetail', params: {id: row.item.id}}">상세보기</v-btn>
            </td>
          </tr>

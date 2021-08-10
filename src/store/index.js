@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import router from '../router/index'
 import axios from 'axios'
+import { faSortAmountDown } from '@fortawesome/free-solid-svg-icons'
 
 Vue.use(Vuex)
 
@@ -27,6 +28,11 @@ export default new Vuex.Store({
     imageLongPants:[], // LongPants image
     imageShortPants:[], // ShortPants image
     cartList:[],
+    orderCartList:[
+                    {
+                      p_id: '', count: '', image: '', price: ''
+                    }
+                  ],
     
 
      //관리자단 
@@ -92,7 +98,6 @@ export default new Vuex.Store({
       {text:'주문자', value:'user_id'},
       {text:'주문일자', value:'date'},
       {text:'총 주문금액', value:'total_price'},
-      {text:'주문상태', value:'state'},
       {text:'보기', value:''},
     ],
     orderdetail_headers_1:[
@@ -184,8 +189,17 @@ export default new Vuex.Store({
       state.cartList.push(data);
       console.log(state.cartList)
     },
+    SET_CARTORDER(state,data){
+      for(var i = 0; i<data.length; i++){
+        state.orderCartList.p_id = data[i].id
+        state.orderCartList.count = data[i].amount
+        state.orderCartList.image = data[i].image
+        state.orderCartList.price = data[i].price
+      }
+      console.log(state.orderCartList)
+    },
     CARTOUT(state) {
-      state.cartList = []
+      state.cartList = [];
       console.log(state.cartList)
     },
     UPDATE_PRODUCT(state, data){
@@ -832,16 +846,25 @@ export default new Vuex.Store({
       })
     },
 
+    //장바구니
     OrderCart({commit},payload) {
       return new Promise((resolve, reject) => {
         commit('SET_CARTLIST', payload)
         router.push("/OrderCart")
       })
     },
-
+    //장바구니 비우기
     CartOut({commit}) {
       return new Promise((resolve, reject) => {
         commit('CARTOUT')
+        router.go(router.currentRoute);
+      })
+    },
+    //장바구니 주문하기
+    CartOrder({commit},payload) {
+      return new Promise((resolve, reject) => {
+        commit('SET_CARTORDER', payload)
+        router.push("/CartOrderForm")
       })
     },
 

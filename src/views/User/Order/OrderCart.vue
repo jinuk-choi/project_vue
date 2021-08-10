@@ -13,15 +13,11 @@
           <template v-slot:default>
             <thead>
                 <tr>
-                    <th>
-                      <v-checkbox
-                        v-model="selected"
-                      ></v-checkbox>
-                    </th>
-                    <th style="text-align:center; font-size:0.9rem;">상품명</th>
-                    <th style="text-align:center; font-size:0.9rem;">수량</th>
-                    <th style="text-align:center; font-size:0.9rem;">가격</th>
-                    <th style="text-align:center; font-size:0.9rem;">합계</th>
+                  <th style="text-align:center; font-size:0.9rem;">선택하기</th>
+                  <th style="text-align:center; font-size:0.9rem;">상품명</th>
+                  <th style="text-align:center; font-size:0.9rem;">수량</th>
+                  <th style="text-align:center; font-size:0.9rem;">가격</th>
+                  <th style="text-align:center; font-size:0.9rem;">합계</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,11 +25,16 @@
               :key="item.id"
               class="mr-10 mb-10"
               >
-                <td><v-checkbox v-model="selected"></v-checkbox></td>
+                <td>
+                  <v-checkbox
+                    v-model="selected"
+                    :value="({id:item.id, amount: item.amount, price: item.price, image:item.image})"
+                  ></v-checkbox>
+                </td>
                 <td><v-img :src="image(item.image)" style="margin-top:2%; width:100px;" ></v-img></td>
                 <td>{{item.amount}}개</td>
                 <td>{{priceToString(item.price)}}원</td>
-                <td>{{total(item.amount)}}원</td>
+                <td>{{total({amount:item.amount, price:item.price})}}원</td>
               </tr>
             </tbody>
           </template>
@@ -52,7 +53,7 @@
     <v-row>
         <v-col sm="3" ></v-col>
         <v-col sm="6" >
-            <v-btn color="primary" router :to="{name: 'OrderList'}">주문하기</v-btn>
+            <v-btn color="primary" @click="CartOrder(selected)">주문하기</v-btn>
             <v-btn router :to="{name: 'Main'}">쇼핑 계속하기</v-btn>
             <v-btn color="error" @click="CartOut()">장바구니 비우기</v-btn>
         </v-col>
@@ -66,13 +67,14 @@ import { mapActions, mapState } from "vuex"
 export default {
   data() {
       return {
-        selected: [''],
+        selected: [],
         List: this.$store.state.cartList,
       }
   },
 
   methods:{
     ...mapActions(["CartOut"]),
+    ...mapActions(["CartOrder"]),
 
     image(image){
     //경로를 조합해줄 메서드.
@@ -84,8 +86,8 @@ export default {
     priceToString(price) {
             return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     },
-    total(amount){
-        return (amount * this.$store.state.cartList[0].price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    total({amount,price}){
+        return (amount * price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     }
 
   },
