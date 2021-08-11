@@ -93,6 +93,7 @@
  
 <script>
 import axios from 'axios'
+import Route from '@/router/index'
 export default {
 
   data() {
@@ -128,7 +129,7 @@ export default {
         axios.post('http://'+ dns +'/api/Order', payload)
           .then(Response => {
               console.log(Response.data)
-                //Route.push("/boardlist")
+                Route.push("/")
           })
           .catch(Error => {
               console.log('error')

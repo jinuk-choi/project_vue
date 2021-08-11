@@ -22,9 +22,9 @@
             <tbody>
               <tr>
                   <td><img :src="image($store.state.product[0].image)" style="margin-top:2%; width:100px;" ></td>
-                  <td>{{amount}}개</td>
+                  <td>{{count}}개</td>
                   <td>{{priceToString($store.state.product[0].price)}}원</td>
-                  <td>{{total(amount)}}원</td>
+                  <td>{{total(count)}}원</td>
               </tr>
             </tbody>
           </template>
@@ -38,7 +38,7 @@
       <v-col sm="3" ></v-col>
       <v-col sm="6" >
         <h4 style="text-align:left; margin-bottom:20px;">
-            주문하시는 분 {{id}}
+            주문하시는 분 
         </h4>
         <v-card
         class="pa-2"
@@ -72,6 +72,7 @@
             </label>
             <input required style="border: 0.5px solid; width:300px; height: 45px;" v-model="email">
             </p>
+       
           </div>
         </v-card>
       </v-col>
@@ -80,7 +81,7 @@
     <v-row>
         <v-col sm="3" ></v-col>
         <v-col sm="6" >
-            <v-btn color="primary" @click="Order({user_id,name, address, phone, email,})">주문하기</v-btn>
+            <v-btn color="primary" @click="Order({user_id,name, address, phone, email,orderdetail})">주문하기</v-btn>
             <v-btn router :to="{name: 'Main'}">취소하기</v-btn>
         </v-col>
         <v-col sm="3" ></v-col>
@@ -89,14 +90,16 @@
 </template>
  
 <script>
+import axios from 'axios'
+import Route from '@/router/index'
 export default {
   name: 'Params',
     props: {
-      amount: {
+      count: {
           type: Number,
           default : 0 
       },
-      id: {
+      p_id: {
           type: Number,
           default : 0 
       }
@@ -108,8 +111,11 @@ export default {
           address: this.$store.state.Userinfo.User_address,
           phone: this.$store.state.Userinfo.User_phone,
           email: this.$store.state.Userinfo.User_email,
-          
+          user_id: this.$store.state.Userinfo.User_Id,
+          price: this.$store.state.product[0].price,
+          orderdetail:[]
       }
+      
   },
 
   methods:{
@@ -129,11 +135,14 @@ export default {
 
     Order(payload) {
       var dns = this.$store.state.dns
+      var order = {count: this.count, p_id: this.p_id, price: this.price}
+      payload.orderdetail[0]=order;
+      console.log(payload)
       return new Promise((resolve, reject) => {
         axios.post('http://'+ dns +'/api/Order', payload)
           .then(Response => {
               console.log(Response.data)
-                //Route.push("/boardlist")
+                Route.push("/")
           })
           .catch(Error => {
               console.log('error')
