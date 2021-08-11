@@ -4,7 +4,7 @@
     <v-row no-gutters>
      <v-col sm="3" ></v-col>
       <v-col sm="6" >
-        <h4 style="text-align:left;">주문내역 조회</h4> 
+        <h4 style="text-align:left;">주문내역</h4> 
         <v-card
           class="pa-2"
           outlined
@@ -12,19 +12,24 @@
         <v-simple-table>
           <template v-slot:default>
             <thead>
-                <tr>
-                    <th style="text-align:center; font-size:0.9rem;">상품명</th>
-                    <th style="text-align:center; font-size:0.9rem;">총수량</th>
-                    <th style="text-align:center; font-size:0.9rem;">가격</th>
-                    <th style="text-align:center; font-size:0.9rem;">합계</th>
-                </tr>
+              <tr>
+                <th style="text-align:center; font-size:0.9rem;">상품명</th>
+                <th style="text-align:center; font-size:0.9rem;">총수량</th>
+                <th style="text-align:center; font-size:0.9rem;">가격</th>
+                <th style="text-align:center; font-size:0.9rem;">합계</th>
+                <th style="text-align:center; font-size:0.9rem;">주문날짜</th>
+              </tr>
             </thead>
             <tbody>
-              <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+              <tr v-for="item in List"
+              :key="item.p_id"
+              class="mr-10 mb-10"
+              >
+                <td><v-img :src="image(item.orderdetail[0].image)" style="margin-top:2%; width:100px;" ></v-img></td>
+                <td>{{item.orderdetail[0].count}}개</td>
+                <td>{{priceToString(item.orderdetail[0].price)}}원</td>
+                <td>{{total({amount:item.orderdetail[0].count, price:item.orderdetail[0].price})}}원</td>
+                <td>{{item.date}}</td>
               </tr>
             </tbody>
           </template>
@@ -34,29 +39,19 @@
      <v-col sm="3" >
      </v-col>
     </v-row>
-    <v-row>
-      <v-col sm="3" ></v-col>
-      <v-col sm="6" >
-      </v-col>
-      <v-col sm="3" ></v-col>
-    </v-row>
-    <v-row>
-        <v-col sm="3" ></v-col>
-        <v-col sm="6" >
-            
-        </v-col>
-        <v-col sm="3" ></v-col>
-    </v-row>
   </v-container> 
 </template>
  
 <script>
+import axios from 'axios'
 export default {
-
+  created(){
+      this.$store.dispatch('OrderListDetail')
+    },
 
   data() {
       return {
-          
+        List: this.$store.state.orderDetailListX,
       }
   },
 
@@ -71,9 +66,24 @@ export default {
     priceToString(price) {
             return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     },
-    total(amount){
-        return (amount * this.$store.state.product[0].price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    }
+    total({amount,price}){
+        return (amount * price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    },
+
+    Order(payload) {
+      var dns = this.$store.state.dns
+      return new Promise((resolve, reject) => {
+        axios.post('http://'+ dns +'/api/Order', payload)
+          .then(Response => {
+              console.log(Response.data)
+                //Route.push("/boardlist")
+          })
+          .catch(Error => {
+              console.log('error')
+              reject(Error)
+          })
+      })
+    },
 
   },
 

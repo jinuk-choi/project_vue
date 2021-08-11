@@ -65,7 +65,6 @@
         <tr>     
           <th style="text-align:center; background-color:rgb(245, 245, 245);">최종결제금액</th>
           <td style="text-align:center;">   
-            <!-- beforeUpdate 이후에 값이 들어옴으로, 랜더링시 오류를 방지하기 위해 v-if를 사용함.-->
             <span v-if="this.$store.state.temp != null">
               {{priceToString($store.state.orderDetailList.total_price)}}원
             </span>

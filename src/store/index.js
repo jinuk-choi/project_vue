@@ -28,12 +28,16 @@ export default new Vuex.Store({
     imageLongPants:[], // LongPants image
     imageShortPants:[], // ShortPants image
     cartList:[],
-    orderCartList:[
-                    {
-                      p_id: '', count: '', image: '', price: ''
-                    }
-                  ],
-    
+    orderCartList:[],
+
+    //사용자화면 주문내역 
+    orderdetail_headers_2:[
+      {text:'상품코드', value:'id'},
+      {text:'상품정보', value:'id'},
+      {text:'주문수량', value:'product'},
+      {text:'판매가격', value:'total_price'},
+    ],
+    orderDetailListX:{},
 
      //관리자단 
      //user
@@ -140,6 +144,9 @@ export default new Vuex.Store({
   getters: {
     get_orderDetailList: state => {
       return state.orderDetailList
+    },
+    get_orderDetailListX: state => {
+      return state.orderDetailListX
     }
   },
 
@@ -205,6 +212,10 @@ export default new Vuex.Store({
     },
     SET_ORDER_DETAIL(state, data){
       state.orderDetailList = data
+    },
+    SET_ORDER_DETAIL_LIST(state, data){
+      state.orderDetailListX = data
+      console.log(state.orderDetailListX)
     },
     SET_USERDATA(state, data) {
        state.userlist = data      
@@ -860,6 +871,23 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         commit('SET_CARTORDER', payload)
         router.push("/CartOrderForm")
+      })
+    },
+    //사용자화면 주문내역
+    OrderListDetail({commit},payload) {
+      var dns = this.state.dns
+      payload = {user_id: this.state.Userinfo.User_Id}
+      console.log(payload)
+      return new Promise((resolve, reject) => {
+          axios.post('http://'+ dns +'/api/orderListDetail',payload)
+              .then(Response => {
+                  console.log(Response.data)
+                  commit('SET_ORDER_DETAIL_LIST', Response.data)
+              })
+              .catch(Error => {
+                  console.log('error')
+                  reject(Error)
+              })
       })
     },
 

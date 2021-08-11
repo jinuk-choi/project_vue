@@ -38,7 +38,7 @@
       <v-col sm="3" ></v-col>
       <v-col sm="6" >
         <h4 style="text-align:left; margin-bottom:20px;">
-            주문하시는 분 
+            주문하시는 분 {{id}}
         </h4>
         <v-card
         class="pa-2"
@@ -80,7 +80,7 @@
     <v-row>
         <v-col sm="3" ></v-col>
         <v-col sm="6" >
-            <v-btn color="primary" router :to="{name: 'OrderList'}">주문하기</v-btn>
+            <v-btn color="primary" @click="Order({user_id,name, address, phone, email,})">주문하기</v-btn>
             <v-btn router :to="{name: 'Main'}">취소하기</v-btn>
         </v-col>
         <v-col sm="3" ></v-col>
@@ -94,8 +94,11 @@ export default {
     props: {
       amount: {
           type: Number,
-          default : 0
-          
+          default : 0 
+      },
+      id: {
+          type: Number,
+          default : 0 
       }
     },
 
@@ -122,7 +125,22 @@ export default {
     },
     total(amount){
         return (amount * this.$store.state.product[0].price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    }
+    },
+
+    Order(payload) {
+      var dns = this.$store.state.dns
+      return new Promise((resolve, reject) => {
+        axios.post('http://'+ dns +'/api/Order', payload)
+          .then(Response => {
+              console.log(Response.data)
+                //Route.push("/boardlist")
+          })
+          .catch(Error => {
+              console.log('error')
+              reject(Error)
+          })
+      })
+    },
 
   },
 
