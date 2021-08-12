@@ -13,24 +13,40 @@
           <template v-slot:default>
             <thead>
               <tr>
+                <th style="text-align:center; font-size:0.9rem;">주문날짜</th>
                 <th style="text-align:center; font-size:0.9rem;">상품명</th>
                 <th style="text-align:center; font-size:0.9rem;">총수량</th>
                 <th style="text-align:center; font-size:0.9rem;">가격</th>
                 <th style="text-align:center; font-size:0.9rem;">합계</th>
-                <th style="text-align:center; font-size:0.9rem;">주문날짜</th>
+                
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in List"
-              :key="item.p_id"
-              class="mr-10 mb-10"
-              >
-                <td><v-img :src="image(item.orderdetail[0].image)" style="margin-top:2%; width:100px;" ></v-img></td>
-                <td>{{item.orderdetail[0].count}}개</td>
-                <td>{{priceToString(item.orderdetail[0].price)}}원</td>
-                <td>{{total({amount:item.orderdetail[0].count, price:item.orderdetail[0].price})}}원</td>
-                <td>{{item.date}}</td>
-              </tr>
+              <template>
+                <tr v-for="item in List"
+                :key="item.id"
+                class="mr-10 mb-10"
+                >
+                  <td>{{item.date}}</td>
+                  
+                  <td v-for="order in item.orderdetail"
+                  :key="order.p_id">
+                  <v-img :src="image(order.image)" style="margin-top:2%; width:100px;" ></v-img></td>
+                  <td v-for="order in item.orderdetail"
+                  :key="order.p_id">
+                    {{order.count}}개</td>
+                    <td v-for="order in item.orderdetail"
+                  :key="order.p_id">
+                    {{priceToString(order.price)}}원</td>
+
+                    <td v-for="order in item.orderdetail"
+                  :key="order.p_id">{{total({amount: order.count, price: order.price})}}원</td>
+                 
+                    
+            
+                  
+                </tr>
+              </template>
             </tbody>
           </template>
         </v-simple-table>
@@ -51,7 +67,7 @@ export default {
 
   data() {
       return {
-        List: this.$store.state.orderDetailListX,
+        List: this.$store.state.orderDetailListX
       }
   },
 

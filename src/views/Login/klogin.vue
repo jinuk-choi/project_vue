@@ -74,7 +74,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["Login"]),
+    ...mapActions(["Klogin"]),
 
     create() {
         this.codes = this.$route.query.code;
@@ -91,11 +91,10 @@ export default {
                     this.password = Response.data.nickname
                     this.jwt = this.codes
                     if (this.password == undefined) {
-                      alert("올바르지 못한 접근입니다.")
-                      Route.push({ name: 'Main' })
+                      Route.push({ name: 'Login' })
                       
                     } else {
-                      this.Login({username:this.username, password:this.password, jwt:this.jwt})
+                      this.Klogin({username:this.username, password:this.password, jwt:this.jwt})
                     }
                 })
                 .catch(Error => {
@@ -104,18 +103,18 @@ export default {
                 })
         })
     },
+
     Kjoin(payload){
       var dns = this.$store.state.dns
-      console.log(payload)
       return new Promise((resolve, reject) => {
         axios.post('http://'+ dns +'/api/auth/signup',payload)
           .then(Response => {
             console.log(Response.data)
-            this.Login({username:this.username, password:this.password, jwt:this.jwt})
-            .catch(Error => {
-                    console.log('error')
-                    reject(Error)
-                })
+
+          .catch(Error => {
+            console.log('error')
+            reject(Error)
+          })
           })
       })
     },

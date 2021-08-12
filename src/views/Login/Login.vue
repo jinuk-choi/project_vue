@@ -14,11 +14,10 @@
           <input type="text" required style="border: 0.5px solid; width:300px; height: 50px;" v-model="username" placeholder="ID">
         </p>
         <p>
-          <input type="password" required style="border: 0.5px solid; width:300px; height: 50px;" v-model="password" placeholder="PASSWORD">
+          <input type="password" required style="border: 0.5px solid; width:300px; height: 50px; margin-bottom:20px;" v-model="password" placeholder="PASSWORD">
         </p>
-
         <span v-if="username == '' || password ==''">
-             <v-btn width="300px" height="50px" @click="error()">로그인</v-btn>
+             <v-btn width="300px" height="20px" @click="error()">로그인</v-btn>
         </span>
         <span v-else>
               <v-btn width="300px" height="20px" @click="Login({username, password})">로그인</v-btn>

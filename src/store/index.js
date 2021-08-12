@@ -736,7 +736,7 @@ export default new Vuex.Store({
         return;
       }
     },
-
+//일반 로그인.
     Login({ commit }, payload) {
       var dns = this.state.dns
       return new Promise((resolve, reject) => {
@@ -761,6 +761,29 @@ export default new Vuex.Store({
               })
               .catch(Error => {
                   alert('아이디 또는 비밀번호를 확인해주세요.')
+                  console.log('error')
+                  reject(Error)
+              })
+      })
+    },
+//카카오 로그인.
+    Klogin({ commit }, payload) {
+      var dns = this.state.dns
+      return new Promise((resolve, reject) => {
+          axios.post('http://'+ dns +'/api/auth/signin', payload)
+              .then(Response => {
+                  console.log(Response.data)
+                  if (Response.data.username != null) {
+                    //로그인 시 헤더에 디폴트 값으로 포함되는 권한을 추가함.
+                      axios.defaults.headers.common['Authorization'] = `Bearer ${Response.data.token}`
+                      localStorage.setItem("token", Response.data.token)
+                      console.log(localStorage.token)
+                      commit('SET_USER', Response.data)
+                        router.push({ name: 'Main' })    
+                  }
+              })
+              .catch(Error => {
+                  alert('정보를 입력해주세요.')
                   console.log('error')
                   reject(Error)
               })

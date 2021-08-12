@@ -23,7 +23,7 @@
               <tr>
                   <td><img :src="image($store.state.product[0].image)" style="margin-top:2%; width:100px;" ></td>
                   <td>{{count}}개</td>
-                  <td>{{priceToString($store.state.product[0].price)}}원</td>
+                  <td>{{priceToString(price)}}원</td>
                   <td>{{total(count)}}원</td>
               </tr>
             </tbody>
@@ -135,7 +135,7 @@ export default {
 
     Order(payload) {
       var dns = this.$store.state.dns
-      var order = {count: this.count, p_id: this.p_id, price: this.price}
+      var order = {count: this.count, p_id: this.p_id, price: this.price, image: this.$store.state.product[0].image}
       payload.orderdetail[0]=order;
       console.log(payload)
       return new Promise((resolve, reject) => {
