@@ -11,41 +11,21 @@
           tile>
         <v-simple-table>
           <template v-slot:default>
-            <thead>
-              <tr>
-                <th style="text-align:center; font-size:0.9rem;">주문날짜</th>
-                <th style="text-align:center; font-size:0.9rem;">상품명</th>
-                <th style="text-align:center; font-size:0.9rem;">총수량</th>
-                <th style="text-align:center; font-size:0.9rem;">가격</th>
-                <th style="text-align:center; font-size:0.9rem;">합계</th>
-                
-              </tr>
-            </thead>
             <tbody>
-              <template>
-                <tr v-for="item in List"
-                :key="item.id"
-                class="mr-10 mb-10"
-                >
-                  <td>{{item.date}}</td>
-                  
-                  <td v-for="order in item.orderdetail"
-                  :key="order.p_id">
-                  <v-img :src="image(order.image)" style="margin-top:2%; width:100px;" ></v-img></td>
-                  <td v-for="order in item.orderdetail"
-                  :key="order.p_id">
-                    {{order.count}}개</td>
-                    <td v-for="order in item.orderdetail"
-                  :key="order.p_id">
-                    {{priceToString(order.price)}}원</td>
-
-                    <td v-for="order in item.orderdetail"
-                  :key="order.p_id">{{total({amount: order.count, price: order.price})}}원</td>
-                 
-                    
-            
-                  
+              <template v-for="item in List"> 
+                <tr :key="item.id">
+                  <td style="text-align:left;">주문날짜: {{item.date}}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
                 </tr>
+                  <tr v-for="order in item.orderdetail"
+                  :key="order.p_id">
+                    <td style="text-align:left;">상품명: {{order.product}}</td>
+                    <td>수량: {{order.count}}개</td>
+                    <td>가격: {{priceToString(order.price)}}원</td>
+                    <td>합계: {{total({amount: order.count, price: order.price})}}원</td>
+                  </tr>
               </template>
             </tbody>
           </template>
