@@ -27,7 +27,7 @@
         <v-btn @click="BoardSearch({type: selected, keyword: search, page: page})">검색</v-btn>
       </v-col>
       <v-col sm="1">
-        <v-btn router :to="{name:'BoardWrite'}" >글쓰기</v-btn>
+        <v-btn v-if="this.$store.state.login_flag == 1" router :to="{name:'BoardWrite'}" >글쓰기</v-btn>
       </v-col >
     </v-row>
 

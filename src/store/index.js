@@ -2,15 +2,14 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import router from '../router/index'
 import axios from 'axios'
-import { faSortAmountDown } from '@fortawesome/free-solid-svg-icons'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     //도메인 변경을 위한 변수
-    //dns:"yosinsa.com",
-    dns:"localhost:9100",
+    dns:"yosinsa.com:9100",
+    //dns:"localhost:9100",
 
     rank: 0,
     temp: 12345678911, 
@@ -38,6 +37,9 @@ export default new Vuex.Store({
       {text:'판매가격', value:'total_price'},
     ],
     orderDetailListX:{},
+
+    //게시판 상세보기
+    board_detail:[],
 
      //관리자단 
      //user
@@ -137,8 +139,7 @@ export default new Vuex.Store({
     ],
     salesdata:[null],
 
-    //게시판 상세보기
-    board_detail:[],
+    
   },
 
   getters: {

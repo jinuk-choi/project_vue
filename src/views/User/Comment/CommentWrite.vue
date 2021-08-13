@@ -22,6 +22,7 @@
 <script>
 import { mapState,mapActions } from 'vuex'
 import axios from 'axios'
+import Route from '@/router/index'
 export default {
     props: {
       id: Number 
@@ -52,8 +53,8 @@ export default {
                 .then(Response => {
                   console.log(Response.data)
                   this.pagination = Response.data
-                  this.List = this.pagination.list
-                  
+                  this.List = this.pagination.list  
+                  Route.go(Route.currentRoute);
                 })
                 .catch(Error => {
                     console.log('error')

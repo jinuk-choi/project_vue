@@ -14,12 +14,18 @@
         <td colspan="2" style="border:none;">내용: {{board_detail.aContent}}</td>
       </tr>
       <tr>
-        <td colspan="2" style="border:none;text-align:right;border-top:3px double #ededed">
+        <td colspan="2" style="border:none;text-align:right;border-top:3px double #ededed"
+          v-if="this.$store.state.login_flag == 1"
+        >
           <v-btn  router :to="{name:'BoardWrite', params:{aDepth: board_detail.aDepth
                                                           ,aGroup: board_detail.aGroup
                                                           ,aOrder: board_detail.aOrder}}">답글</v-btn>
-          <v-btn  router :to="{name:'boardEdit'}">수정</v-btn>
-          <v-btn @click="BoardDelete($route.params.aIdx)">삭제</v-btn>
+          <v-btn v-if="this.$store.state.Userinfo.User_Id == this.$store.state.board_detail.uId"
+           router :to="{name:'boardEdit'}">수정
+          </v-btn>
+          <v-btn v-if="this.$store.state.Userinfo.User_Id == this.$store.state.board_detail.uId
+                    || this.$store.state.Userinfo.User_auth[0] == 'ROLE_ADMIN'"
+          @click="BoardDelete($route.params.aIdx)">삭제</v-btn>
         </td>
       </tr>
     </table>

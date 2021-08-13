@@ -35,10 +35,14 @@
          <td style="font-size:0.9rem;">{{item.cContent}}</td>
         </tr>
         <tr style="border:none; text-align:right; border-top:1px double #ededed" v-show= "!item.bTn">
-          <td>
-            <v-btn @click="item.bTn = !item.bTn">수정</v-btn>
-            <v-btn @click="CommentDelete(item.cId,item.id)">삭제</v-btn>
+          <td v-if="login_flag == 1">
+            <v-btn v-if="User_Id == item.uId" @click="item.bTn = !item.bTn">수정</v-btn>
+            <v-btn v-if="User_Id == item.uId || User_auth == 'ROLE_ADMIN'"
+             @click="CommentDelete(item.cId,item.id)">삭제
+            </v-btn>
           </td>
+          <td/>
+          <td/>
         </tr>
           <tr style="border:none;text-align:right;border-top:1px double #ededed" v-show="item.bTn">
             <td>
@@ -73,6 +77,9 @@ export default {
       cContent: null,
       bTn: false,
       cRating: null,
+      login_flag: this.$store.state.login_flag,
+      User_Id: this.$store.state.Userinfo.User_Id,
+      User_auth: this.$store.state.Userinfo.User_auth[0]
     }
   
   },
