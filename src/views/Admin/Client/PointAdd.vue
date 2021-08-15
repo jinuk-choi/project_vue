@@ -44,7 +44,26 @@
   </v-row>
   </div>
 </template>
-<style scoped>
+
+<script>
+import {mapActions} from "vuex"
+  export default {
+    data () {
+      return {     
+        username:'', 
+        content: '',
+        point: '',
+      }
+    },
+    methods:{
+      ...mapActions(["PointAdd"]),
+    error(){
+        alert('입력되지 않은 정보가 있습니다.')
+      }
+    }
+  }
+  </script>
+  <style scoped>
 @media (min-width: 1200px) {
   .container {
     max-width:100%;
@@ -74,21 +93,3 @@ img{
 }
 
 </style>
-<script>
-import {mapActions} from "vuex"
-  export default {
-    data () {
-      return {     
-        username:'', 
-        content: '',
-        point: '',
-      }
-    },
-    methods:{
-      ...mapActions(["PointAdd"]),
-    error(){
-        alert('입력되지 않은 정보가 있습니다.')
-      }
-    }
-  }
-  </script>

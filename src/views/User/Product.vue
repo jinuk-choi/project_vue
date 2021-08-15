@@ -61,7 +61,7 @@
 
 <!-- 구매 후기 -->
     <v-divider></v-divider>
-    <v-row style="margin-top:50px; margin-bottom:50px;">
+    <v-row style="margin-top:50px; margin-bottom:50px;" v-if="this.$store.state.login_flag == 1">
       <h2 style="margin-right:50%; margin-bottom:50px;">사용후기</h2>
         <CommentWrite :id="id"></CommentWrite>
     </v-row>
