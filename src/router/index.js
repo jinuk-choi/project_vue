@@ -12,8 +12,6 @@ import OrderDetail from '../views/Admin/Management/OrderDetail.vue'
 import Product from '../views/Admin/Management/Product.vue'
 import ProductRegistration from '../views/Admin/Management/ProductRegistration.vue'
 import ProductUpdate from '../views/Admin/Management/ProductUpdate.vue'
-import Point from '../views/Admin/Client/Point.vue'
-import PointAdd from '../views/Admin/Client/PointAdd.vue'
 import Ranking from '../views/Admin/Situation/Ranking.vue'
 import Sales from '../views/Admin/Situation/Sales.vue'
 import SalesData from '../views/Admin/Situation/SalesData.vue'
@@ -209,19 +207,7 @@ const routes = [
         name: 'UserList',
         component: UserList
       },
-      {
-        path: 'point',
-        name: 'Point',
-        component: Point,
-      },
-      {
-        path: 'pointadd',
-        name: 'PointAdd',
-        component: PointAdd
-      },
       
-
-
     ]
   },
 

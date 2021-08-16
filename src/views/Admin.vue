@@ -141,7 +141,6 @@ export default {
     selectedItem: 1,
       item1: [
         { title: '회원정보', name: 'UserList' },
-        { title: '포인트관리', name: 'Point'},
       ],
       item2: [
         { title: '주문내역', name: 'Order'},

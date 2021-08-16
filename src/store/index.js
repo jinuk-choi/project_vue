@@ -116,17 +116,6 @@ export default new Vuex.Store({
     orderlist:[null],
     orderDetailList:{},
 
-    //point
-    point_headers:[
-      { text:'아이디', value:'username'},
-      { text:'이름', value:'name'},
-      { text:'포인트내용', value:'content'},
-      { text:'포인트', value:'point'},
-      { text:'일시', value:'date'},
-      { text:'포인트합계', value:'total_point'},
-    ],
-    point:[],
-
     //sales
     sales_headers:[
       {text:'주문번호', value:'id'},
@@ -240,7 +229,7 @@ export default new Vuex.Store({
     LogOut(state) {
       state.Userinfo.User_Id = null
       state.Userinfo.User_Name = null
-      state.Userinfo.User_auth = null
+      state.Userinfo.User_auth = ' '
       state.Userinfo.User_token = null
       state.login_flag = false
       localStorage.removeItem("token")
@@ -250,25 +239,6 @@ export default new Vuex.Store({
     INSERT_TOKEN(state) {
       state.Userinfo.User_token = localStorage.getItem("token")
       state.login_flag = true
-    },
-    SET_POINT(state, data){
-        
-      for(var item=0; item <data.length; item++)  {
-
-        var part1 = data[item].date.slice(0,8);
-        var part2 = data[item].date.slice(9,15);
-        
-        var time = part1 + part2;
-        data[item].time = time
-      }
-
-      function date_Sort(a, b) { 
-        return b.time - a.time;
-      }
-      //날짜 순으로 정렬
-      data.sort(date_Sort);
-
-      state.point = data
     },
     SET_RANKING(state, data) {
       function oc_Sort(a, b) { 
@@ -633,41 +603,7 @@ export default new Vuex.Store({
       })
     },
 
-    Point({commit}){
-      var dns = this.state.dns
-      return new Promise((resolve,reject) => {
-        axios.get('http://'+ dns +'/api/admin/point')
-        .then(Response => {
-            console.log(Response.data)
-            commit('SET_POINT', Response.data)
-        })
-        .catch(Error => {
-            console.log('error')
-            reject(Error)
-        })
-      })
-    },
-
-    PointAdd(payload){
-      var dns = this.state.dns
-      console.log(payload)
-      return new Promise((resolve,reject) => {
-        axios.post('http://'+ dns +'/api/admin/pointadd',payload)
-        .then(Response => {
-          if(Response.data == 'success'){
-            console.log(Response.data)
-            router.push({name:'Point'})
-          }else{
-            alert('존재하지 않는 아이디입니다.');
-          }
-        })
-        .catch(Error =>{
-            alert('입력양식을 확인해주세요.');
-            console.log('error')
-            reject(Error)
-        })
-      })
-    },
+    
 
     UserList({commit, state}) {
       var dns = this.state.dns
@@ -887,6 +823,7 @@ export default new Vuex.Store({
     CartOut({commit}) {
       return new Promise((resolve, reject) => {
         commit('CARTOUT')
+        alert('장바구니에서 삭제 되었습니다.')
         router.go(router.currentRoute);
       })
     },

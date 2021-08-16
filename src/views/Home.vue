@@ -99,7 +99,7 @@
             <v-tab style=" color:grey; width:140px;" router :to="{name: 'BoardList'}">Q&A</v-tab>
 
             <!-- 관리자 페이지 -->
-            <v-tab v-if="this.$store.state.login_flag == 1"
+            <v-tab v-if="this.$store.state.Userinfo.User_auth[0] == 'ROLE_ADMIN'"
               style="background-color:lightgrey; color:black; width:140px;" router :to="{name: 'Admin'}">관리자 페이지
             </v-tab>
         </v-tabs>
