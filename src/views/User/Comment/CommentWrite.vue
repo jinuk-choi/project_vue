@@ -54,9 +54,9 @@ export default {
                   console.log(Response.data)
                   this.pagination = Response.data
                   this.List = this.pagination.list  
-                  //Route.go(Route.currentRoute);
                   alert('작성완료했습니다.')
-                  this.$router.go(this.$router.currentRoute);
+                    Route.go(Route.currentRoute);
+                  
                 })
                 .catch(Error => {
                     console.log('error')
