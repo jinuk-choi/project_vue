@@ -29,6 +29,8 @@ import boardEdit from '../views/User/Board/BoardEdit.vue'
 import OrderForm from '../views/User/Order/OrderForm.vue'
 import OrderList from '../views/User/Order/OrderList.vue'
 import OrderCart from '../views/User/Order/OrderCart.vue'
+import Payment from '../views/User/Order/Payment.vue'
+import kakaoPaySuccess from '../views/User/Order/kakaoPaySuccess.vue'
 import CartOrderForm from '../views/User/Order/CartOrderForm.vue'
 import Main from '../views/User/Main.vue'
 import store from '../store'
@@ -132,6 +134,12 @@ const routes = [
         ,name:'OrderCart'
         ,component:OrderCart
       },
+      {
+        path:'/Payment'
+        ,name:'Payment'
+        ,component:Payment
+      },
+      
     ]
   },
   {
@@ -148,6 +156,11 @@ const routes = [
     path:'/Join',
     name:'Join',
     component: Join
+  },
+  {
+    path:'/kakaoPaySuccess'
+    ,name:'kakaoPaySuccess'
+    ,component:kakaoPaySuccess
   },
   {
     path: '/Admin',

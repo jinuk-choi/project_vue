@@ -8,8 +8,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     //도메인 변경을 위한 변수
-    dns:"yosinsa.com:9100",
-    //dns:"localhost:9100",
+    //dns:"yosinsa.com:9100",
+    dns:"localhost:9100",
 
     rank: 0,
     temp: 12345678911, 
