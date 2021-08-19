@@ -138,6 +138,7 @@ const routes = [
         path:'/Payment'
         ,name:'Payment'
         ,component:Payment
+        ,props: true
       },
       
     ]

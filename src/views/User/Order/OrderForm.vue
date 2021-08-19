@@ -81,7 +81,7 @@
     <v-row>
         <v-col sm="3" ></v-col>
         <v-col sm="6" >
-            <router-link to='/Payment' style="color:#263238; text-decoration:none">
+            <router-link :to="{name: 'Payment', params:{count,product,price}}" style="color:#263238; text-decoration:none">
               <img :src="image('kakao_pay')" style="margin-right:1%;">
             </router-link> 
             <v-btn color="primary" style="margin-right:1%;" @click="Order({user_id,name, address, phone, email,orderdetail})">주문하기</v-btn>
@@ -104,6 +104,10 @@ export default {
       },
       p_id: {
           type: Number,
+          default : 0 
+      },
+      product: {
+          type: String,
           default : 0 
       }
     },

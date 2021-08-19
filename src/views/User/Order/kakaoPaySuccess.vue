@@ -27,7 +27,8 @@ import Route from '@/router/index'
 export default {
   data() {
     return {
-      codes:"" 
+      codes:"" ,
+      
     }
   },
   created() {
@@ -43,7 +44,7 @@ export default {
     kakaoPaySuccess() {
         var dns = this.$store.state.dns
         return new Promise((resolve, reject) => {
-            axios.get('http://'+ dns +'/kakaoPaySuccess?pg_token=' + this.codes)
+            axios.get('http://'+ dns +'/kakaoPaySuccess?pg_token=' + this.codes,order)
             .then(Response => {
                 console.log(Response.data)
             })

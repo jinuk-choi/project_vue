@@ -2,9 +2,6 @@
     <div>
         <v-container>
             <v-row justify="center">
-                <template v-slot:activator="{ on }">
-                    <v-btn color="primary" dark v-on="on">결제하기</v-btn>
-                </template>
                 <v-card>
                     <v-card-title>
                         <span class="headline">결제 정보 입력</span>
@@ -23,6 +20,12 @@
                     </v-card-actions>
                 </v-card>
             </v-row>
+            <v-row><p/></v-row>
+            <v-row>
+              <v-card>
+               
+              </v-card>
+            </v-row>
         </v-container>
     </div>
 </template>
@@ -30,15 +33,35 @@
 <script>
 import axios from 'axios'
 import Route from '@/router/index'
-
 export default {
+    name: 'Params',
+    props: {
+      count: {
+          type: Number,
+          default : 0 
+      },
+      price: {
+          type: String,
+          
+      },
+      product: {
+          type: String,
+         
+      }
+    },
+    data() {
+        return {
+            name: this.$store.state.Userinfo.User_Name
+        }
+    },
     methods:{
-        pay() {
+        pay(payload) {
             var dns = this.$store.state.dns
             return new Promise((resolve, reject) => {
-                axios.post('http://'+ dns +'/kakaoPay')
+                axios.post('http://'+ dns +'/kakaoPay',payload)
                 .then(Response => {
                     window.open(Response.data);
+                    //Route.push("/")
                         
                 })
                 .catch(Error => {
