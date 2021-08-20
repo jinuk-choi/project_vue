@@ -14,13 +14,17 @@
             <tbody>
               <template v-for="item in List"> 
                 <tr :key="item.id">
-                  <td style="text-align:left;">주문날짜: {{item.date}}</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td style="text-align:left;" class="font-italic">주문날짜 : {{item.date}}</td>
+                  <td class="font-italic">결제상태 :{{item.state}}</td>
+                  <td class="font-italic" style="text-align:right;">카카오페이로 결제하기 :</td>
+                  <td>
+                    <router-link :to="{name: 'Payment', params: {id: item.id}}" style="color:#263238; text-decoration:none">
+                      <img :src="image('kakao_pay')" style="margin-right:30%;">
+                    </router-link> 
+                  </td>
                 </tr>
                   <tr v-for="order in item.orderdetail"
-                  :key="order.p_id">
+                  :key="order.od_id">
                     <td style="text-align:left;">상품명: {{order.product}}</td>
                     <td>수량: {{order.count}}개</td>
                     <td>가격: {{priceToString(order.price)}}원</td>

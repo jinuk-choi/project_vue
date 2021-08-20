@@ -81,10 +81,7 @@
     <v-row>
         <v-col sm="3" ></v-col>
         <v-col sm="6" >
-            <router-link :to="{name: 'Payment', params:{count,product,price}}" style="color:#263238; text-decoration:none">
-              <img :src="image('kakao_pay')" style="margin-right:1%;">
-            </router-link> 
-            <v-btn color="primary" style="margin-right:1%;" @click="Order({user_id,name, address, phone, email,orderdetail})">주문하기</v-btn>
+            <v-btn color="primary" style="margin-right:1%;" @click="Order({user_id,name, address, phone, email, orderdetail, state, total_price})">주문하기</v-btn>
             <v-btn router :to="{name: 'Main'}">취소하기</v-btn>
         </v-col>
         <v-col sm="3" ></v-col>
@@ -120,9 +117,18 @@ export default {
           email: this.$store.state.Userinfo.User_email,
           user_id: this.$store.state.Userinfo.User_Id,
           price: this.$store.state.product[0].price,
+          total_price: 0,
+          state: "결제전",
           orderdetail:[]
       }
       
+  },
+
+  computed: {
+  sum () {
+    this.total_price = (this.price * this.count)
+      return this.total_price;
+  }
   },
 
   methods:{

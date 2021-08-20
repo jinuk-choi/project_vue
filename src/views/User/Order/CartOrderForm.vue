@@ -83,7 +83,7 @@
     <v-row>
         <v-col sm="3" ></v-col>
         <v-col sm="6" >
-            <v-btn color="primary" @click="Order({user_id,name, address, phone, email,orderdetail:List})">주문하기</v-btn>
+            <v-btn color="primary" @click="Order({user_id,name, address, phone, email, total_price, state, orderdetail:List})">주문하기</v-btn>
             <v-btn router :to="{name: 'Main'}">취소하기</v-btn>
         </v-col>
         <v-col sm="3" ></v-col>
@@ -103,11 +103,19 @@ export default {
         address: this.$store.state.Userinfo.User_address,
         phone: this.$store.state.Userinfo.User_phone,
         email: this.$store.state.Userinfo.User_email,
-        user_id: this.$store.state.Userinfo.User_Id
-          
+        user_id: this.$store.state.Userinfo.User_Id,
+        total_price: 0,
+        state: "결제전"
       }
   },
-
+  computed: {
+    sum () {
+      this.List.forEach ((item, i) => {
+        this.total_price += (item.price * item.count)
+      });
+      return this.total_price;
+    }
+  },
   methods:{
     image(image){
     //경로를 조합해줄 메서드.
@@ -117,10 +125,10 @@ export default {
     return require('@/images/'+ image +'.jpg');
     },
     priceToString(price) {
-            return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     },
     total({amount,price}){
-        return (amount * price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      return (amount * price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     },
 
     Order(payload) {

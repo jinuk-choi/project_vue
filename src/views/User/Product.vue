@@ -53,7 +53,7 @@
           </v-row>
           <v-row v-else align="center" justify="space-around" >
             <v-btn max-width="5" color="primary"  class="mt-6"  router :to="{name:'OrderForm', params:{count: amount,p_id:id, product: name}}">구매하기</v-btn>                                                                       
-            <v-btn max-width="5" class="mt-6" @click="OrderCart({id,amount,price:$store.state.product[0].price,image:$store.state.product[0].image})">장바구니</v-btn>
+            <v-btn max-width="5" class="mt-6" @click="OrderCart({id,amount,price:Number($store.state.product[0].price),image:$store.state.product[0].image})">장바구니</v-btn>
           </v-row>
         </v-card>
       </v-col>
@@ -101,7 +101,7 @@ import {mapActions} from "vuex"
       return {     
         id: Number(this.$route.params.id), 
         name: this.$store.state.product[0].name,
-        price: this.$store.state.product[0].price,
+        price: Number(this.$store.state.product[0].price),
         quantity: this.$store.state.product[0].quantity,
         amount:1,
         num:1,

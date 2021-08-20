@@ -15,8 +15,8 @@
                     </v-card-text>
                     <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" @click="pay()">결제</v-btn>
-                    <v-btn color="blue darken-1">취소</v-btn>
+                    <v-btn color="blue darken-1" @click="pay({id:id})">결제</v-btn>
+                    <v-btn color="blue darken-1" router :to="{name: 'Main'}">취소</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-row>
@@ -36,17 +36,9 @@ import Route from '@/router/index'
 export default {
     name: 'Params',
     props: {
-      count: {
+      id: {
           type: Number,
           default : 0 
-      },
-      price: {
-          type: String,
-          
-      },
-      product: {
-          type: String,
-         
       }
     },
     data() {
@@ -57,6 +49,7 @@ export default {
     methods:{
         pay(payload) {
             var dns = this.$store.state.dns
+            console.log(payload)
             return new Promise((resolve, reject) => {
                 axios.post('http://'+ dns +'/kakaoPay',payload)
                 .then(Response => {

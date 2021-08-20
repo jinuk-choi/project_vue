@@ -65,11 +65,10 @@
 <script>
 import { mapActions, mapState } from "vuex"
 export default {
-
   data() {
       return {
         selected: [],
-        List: this.$store.state.cartList,
+        List: this.$store.state.cartList, 
       }
   },
 
@@ -85,10 +84,10 @@ export default {
     return require('@/images/'+ image +'.jpg');
     },
     priceToString(price) {
-            return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     },
     total({amount,price}){
-        return (amount * price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      return (amount * price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     }
 
   },
