@@ -54,7 +54,7 @@ export default {
                 axios.post('http://'+ dns +'/kakaoPay',payload)
                 .then(Response => {
                     window.open(Response.data);
-                    //Route.push("/")
+                    Route.push("/")
                         
                 })
                 .catch(Error => {

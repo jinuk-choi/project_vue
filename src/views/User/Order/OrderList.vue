@@ -16,9 +16,9 @@
                 <tr :key="item.id">
                   <td style="text-align:left;" class="font-italic">주문날짜 : {{item.date}}</td>
                   <td class="font-italic">결제상태 :{{item.state}}</td>
-                  <td class="font-italic" style="text-align:right;">카카오페이로 결제하기 :</td>
+                  <td class="font-italic" style="text-align:right;"><P v-if="item.state == '결제전'" style="margin-top:10%;">카카오페이로 결제하기 :</P></td>
                   <td>
-                    <router-link :to="{name: 'Payment', params: {id: item.id}}" style="color:#263238; text-decoration:none">
+                    <router-link :to="{name: 'Payment', params: {id: item.id}}" style="color:#263238; text-decoration:none" v-if="item.state == '결제전'">
                       <img :src="image('kakao_pay')" style="margin-right:30%;">
                     </router-link> 
                   </td>
