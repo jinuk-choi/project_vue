@@ -56,6 +56,18 @@
             <v-btn max-width="5" class="mt-6" @click="OrderCart({id,amount,price:Number($store.state.product[0].price),image:$store.state.product[0].image})">장바구니</v-btn>
           </v-row>
         </v-card>
+        <v-card style ="width:320px; height:200px; padding-left:30px; padding-top:25px">
+          <v-select
+            :items="color"
+            label="color"
+            outlined
+          ></v-select>
+          <v-select
+            :items="size"
+            label="size"
+            outlined
+          ></v-select>
+        </v-card>
       </v-col>
     </v-row>
 
@@ -105,6 +117,8 @@ import {mapActions} from "vuex"
         quantity: this.$store.state.product[0].quantity,
         amount:1,
         num:1,
+        color: [95,100,105],
+        size: ['그레이','레드','블루']
       }
     },
     methods:{
