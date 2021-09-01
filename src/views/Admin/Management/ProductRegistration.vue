@@ -24,6 +24,16 @@
           <td><input style="height:100%; width:100%;" v-model="category"></td>
         </tr>
         <tr>
+         <th>
+           옵션1 ex:[옵션1 : 사이즈] 
+         </th>
+         <td><input style="height:100%; width:100%;" v-model="category"></td>
+        </tr>
+        <tr>
+         <th>옵션2</th>
+         <td><input style="height:100%; width:100%;" v-model="category"></td>
+        </tr>
+        <tr>
           <th>재고</th>
           <td><input style="height:100%; width:100%;" v-model="quantity"></td>
         </tr>
